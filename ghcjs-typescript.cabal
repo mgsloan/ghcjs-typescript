@@ -1,0 +1,20 @@
+name:                ghcjs-typescript
+version:             0.1.0.0
+synopsis:            TypeScript's type system, in Haskell
+-- description:
+license:             MIT
+license-file:        LICENSE
+author:              Michael Sloan
+maintainer:          mgsloan@gmail.com
+category:            JavaScript
+build-type:          Simple
+-- extra-source-files:
+cabal-version:       >=1.10
+
+library
+  exposed-modules:     GHCJS.TypeScript
+  other-extensions:    BangPatterns, ConstraintKinds, DataKinds, FlexibleContexts, FlexibleInstances, GADTs, MultiParamTypeClasses, PolyKinds, RankNTypes, ScopedTypeVariables, TypeFamilies, TypeOperators, UndecidableInstances, TemplateHaskell
+  build-depends:       base >=4.8 && <4.9,
+                       ghcjs-base,
+                       ghcjs-prim
+  default-language:    Haskell2010
