@@ -1,3 +1,5 @@
 resolver: ghcjs-0.1.0_ghc-7.10.2
+extra-deps:
+- hvect-0.2.0.0
 packages:
 - .
