@@ -48,16 +48,45 @@ construct k args obj = do
 
 invokeConstructor :: (HasConstructor obj ts ty r)
                   => obj -> HVect ts -> IO r
-invokeConstructor func args = do
-  argsList <- toJSArray (hvectToRefList args)
-  coerce (js_construct (coerce func) argsList)
+invokeConstructor proto = coerce . invokeConstructorImpl (coerce proto)
 
-foreign import javascript unsafe "$1.bind.apply($1, $2)"
-   js_construct :: JSRef proto -> JSRef args -> IO (JSRef result)
+-- No good way to invoke constructors with an array...
+-- FIXME: generate with TH
+
+class InvokeConstructor ts where
+  invokeConstructorImpl :: JSRef proto -> HVect ts -> IO (JSRef result)
+
+instance InvokeConstructor '[] where invokeConstructorImpl proto HNil = js_construct0 proto
+foreign import javascript unsafe "new ($1)()"
+  js_construct0 :: JSRef proto -> IO (JSRef result)
+
+instance IsJSRef a0 => InvokeConstructor '[a0] where
+  invokeConstructorImpl proto (a0 :&: HNil) =
+    js_construct1 proto (coerce a0)
+  invokeConstructorImpl _ _ = impossible
+foreign import javascript unsafe "new ($1)($2)"
+  js_construct1 :: JSRef proto -> JSRef a0 -> IO (JSRef result)
+
+instance (IsJSRef a0, IsJSRef a1) => InvokeConstructor '[a0, a1] where
+  invokeConstructorImpl proto (a0 :&: a1 :&: HNil) =
+    js_construct2 proto (coerce a0) (coerce a1)
+  invokeConstructorImpl _ _ = impossible
+foreign import javascript unsafe "new $1($2, $3)"
+  js_construct2 :: JSRef proto -> JSRef a0 -> JSRef a1 -> IO (JSRef result)
+
+instance (IsJSRef a0, IsJSRef a1, IsJSRef a2) => InvokeConstructor '[a0, a1, a2] where
+  invokeConstructorImpl proto (a0 :&: a1 :&: a2 :&: HNil) =
+    js_construct3 proto (coerce a0) (coerce a1) (coerce a2)
+  invokeConstructorImpl _ _ = impossible
+foreign import javascript unsafe "new $1($2, $3, $4)"
+  js_construct3 :: JSRef proto -> JSRef a0 -> JSRef a1 -> JSRef a2 -> IO (JSRef result)
+
+impossible :: a
+impossible = error "Impossible type in constructor invocation?!?"
 
 type HasConstructor obj ts ty r =
   ( LookupMember 'Constructor (Members obj) ~ 'Just ty
-  , HVectToRefList (HVect ts)
+  , InvokeConstructor ts
   , InvokeResult ty ts ~ r
   , IsJSRef obj
   , IsJSRef r
