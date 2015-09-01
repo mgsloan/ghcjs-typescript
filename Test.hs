@@ -30,7 +30,7 @@ main = do
   xAxis <- newObject >>=
     objectInsert (P::P"categories") arr
   title2 <- newObject >>=
-    objectInsert (P::P"text") (toJSString "Fibs")
+    objectInsert (P::P"text") (toString "Fibs")
   yAxis <- newObject >>=
     objectInsert (P::P"title") title2
   seriess <- listToArray [series]

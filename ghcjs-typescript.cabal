@@ -22,3 +22,15 @@ library
                        hvect
   default-language:    Haskell2010
   ghc-options:         -Wall
+
+test-suite test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             test.hs
+  other-modules:       TestUtil
+  ghc-options:         -Wall
+  build-depends:       base == 4.*
+                     , directory
+                     , ghcjs-base
+                     , ghcjs-typescript
+                     , process

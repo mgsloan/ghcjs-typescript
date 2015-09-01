@@ -6,7 +6,13 @@
 
 * Tuple types
 
-* Function types
+* Function type
+
+* Support "Rest" parameter in invoke functions
+
+* Function overloading
+
+  - Specialized signatures
 
 * Actual interfaces for primitives
 

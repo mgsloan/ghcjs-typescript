@@ -1,0 +1,21 @@
+[1 of 1] Compiling Main             ( test/input.hs, test/input.js_o )
+
+
+test/input.hs:53:15:
+    Couldn't match type ‘'MemberFailure
+                           '('Property "z",
+                             "missing in type being assigned to, in the context",
+                             '[])’
+                   with ‘'Success’
+    In the expression: cast xy :: XYZ
+    In an equation for ‘bad_XYToXYZ’: bad_XYToXYZ = cast xy :: XYZ
+
+test/input.hs:57:21:
+    Couldn't match type ‘'MemberFailure
+                           '('Property "z",
+                             "is optional, but required in the type being assigned to, in the context",
+                             '[])’
+                   with ‘'Success’
+    In the expression: cast xymz :: XYZ
+    In an equation for ‘bad_XYMaybeZToXYZ’:
+        bad_XYMaybeZToXYZ = cast xymz :: XYZ

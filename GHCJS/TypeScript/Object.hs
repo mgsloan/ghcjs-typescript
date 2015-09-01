@@ -27,7 +27,7 @@ newObject = coerce js_emptyObj
 
 foreign import javascript unsafe "$r = {};" js_emptyObj :: IO (JSRef a)
 
-cast :: (s := t) => s -> t
+cast :: (t := s) => s -> t
 cast = coerce
 
 toObject :: IsJSRef obj => obj -> Object (Members obj)
