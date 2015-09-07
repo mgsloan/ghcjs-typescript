@@ -1,10 +1,6 @@
-* Should objects be ordered?
-
 * Handle type "identical" relationship properly
 
 * Tuple types
-
-* Function type
 
 * Support "Rest" parameter in invoke functions
 
@@ -12,7 +8,12 @@
 
   - Specialized signatures
 
-* Actual interfaces for primitives
+* Optimize Rel by having it write down what it's already checked?
+
+* Synonym for ('Property f, t)
+
+* Follow excess properties for object literal creation
+  https://github.com/Microsoft/TypeScript/commit/bf72629301f7b937673a51b54722f91465ac41e8
 
 * Follow index signature rules:
   (for extends, TSS(7.1)) All properties of the interface must
