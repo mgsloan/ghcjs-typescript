@@ -172,10 +172,10 @@ type family RemoveSubtypes x xs where
 --------------------------------------------------------------------------------
 -- Type Relationships
 
-type a <: b = ((Rel '[] a 'SubtypeOf b) ~ 'Success, IsJSRef a, IsJSRef b)
-type a := b = ((Rel '[] b 'AssignableTo a) ~ 'Success, IsJSRef a, IsJSRef b)
-type a <:? b = Rel '[] a 'SubtypeOf b == 'Success
-type a :=? b = Rel '[] b 'AssignableTo a == 'Success
+type a <: b = ((Rel '[] '[] a 'SubtypeOf b) ~ 'Success, IsJSRef a, IsJSRef b)
+type a := b = ((Rel '[] '[] b 'AssignableTo a) ~ 'Success, IsJSRef a, IsJSRef b)
+type a <:? b = Rel '[] '[] a 'SubtypeOf b == 'Success
+type a :=? b = Rel '[] '[] b 'AssignableTo a == 'Success
 
 data RelResult a b c
   = Success
@@ -189,19 +189,19 @@ data Relationship
   = SubtypeOf
   | AssignableTo
 
-type family Rel path s (r :: Relationship) t where
+type family Rel path c s (r :: Relationship) t where
   -- TSS(3.10.3/4): S and T are identical types.
-  Rel path s r s = 'Success
+  Rel path c s r s = 'Success
   -- TSS(3.10.3 - Subtype): T is the Any type.
   -- TSS(3.10.4 - Assignable): S or T is the Any type.
-  Rel path Any 'AssignableTo t = 'Success
-  Rel path s r Any = 'Success
+  Rel path c Any 'AssignableTo t = 'Success
+  Rel path c s r Any = 'Success
   -- TSS(3.10.3/4): S is the Undefined type.
-  Rel path Undefined r t = 'Success
+  Rel path c Undefined r t = 'Success
   -- TSS(3.10.3/4): S is the Null type and T is not the Undefined
   -- type.
-  Rel path Null r Undefined = Mismatch path Null r Undefined
-  Rel path Null r t = 'Success
+  Rel path c Null r Undefined = Mismatch path Null r Undefined
+  Rel path c Null r t = 'Success
   -- FIXME TSS(3.10.4): S is an enum type and T is the primitive type
   -- Number.
   --
@@ -214,52 +214,59 @@ type family Rel path s (r :: Relationship) t where
   -- a subtype of / assignable to T.
   --
   -- FIXME: clarify in the path that we're checking a union type?
-  Rel path (s1 :|: s2) r t = BothSuccess (Rel path s1 r t) (Rel path s2 r t)
+  Rel path c (s1 :|: s2) r t = BothSuccess (Rel path c s1 r t) (Rel path c s2 r t)
   -- TSS(3.10.3/4): T is a union type and S is a subtype of /
   -- assignable to at least one constituent type of T.
-  Rel path s r (t1 :|: t2) = EitherSuccess (Rel path s r t1) (Rel path s r t2)
+  Rel path c s r (t1 :|: t2) = EitherSuccess (Rel path c s r t1) (Rel path c s r t2)
   -- Only matching primitive types are subtypes of primitive types.
-  Rel path Number r Number = 'Success
-  Rel path Boolean r Boolean = 'Success
-  Rel path String r String = 'Success
-  Rel path s r Number = Mismatch path s r Number
-  Rel path s r Boolean = Mismatch path s r Number
-  Rel path s r String = Mismatch path s r Number
+  Rel path c Number r Number = 'Success
+  Rel path c Boolean r Boolean = 'Success
+  Rel path c String r String = 'Success
+  Rel path c s r Number = Mismatch path s r Number
+  Rel path c s r Boolean = Mismatch path s r Number
+  Rel path c s r String = Mismatch path s r Number
   -- TSS (3.10.3/4): S is an object type, a type parameter, or the
   -- Number, Boolean, or String primitive type, T is an object type,
   -- and for each member M in T, one of the following is true:
-  Rel path s r t = ObjectRel path (Members s) r (Members t)
+  Rel path c s r t =
+    SuccessIfAlreadyChecking s t c
+      (ObjectRel path ('(s, t) ': c) (Members s) r (Members t))
 
-type family ObjectRel path r ns ms where
-  ObjectRel path ns r '[] = 'Success
-  ObjectRel path ns r ('(k, m) ': ms) =
+type family SuccessIfAlreadyChecking s t c f where
+  SuccessIfAlreadyChecking s t '[] f = f
+  SuccessIfAlreadyChecking s t ('(s, t) ': c) f = 'Success
+  SuccessIfAlreadyChecking s t ('(sother, tother) ': c) f = SuccessIfAlreadyChecking s t c f
+
+type family ObjectRel path c r ns ms where
+  ObjectRel path c ns r '[] = 'Success
+  ObjectRel path c ns r ('(k, m) ': ms) =
     BothSuccess
-      (MemberRel (k ': path) k (LookupMember k ns) r m)
-      (ObjectRel path ns r ms)
+      (MemberRel (k ': path) c k (LookupMember k ns) r m)
+      (ObjectRel path c ns r ms)
 
-type family MemberRel path k r n m where
+type family MemberRel path c k r n m where
   -- TSS (3.10.4 - Assignable):
   -- M is an optional property and S has no apparent property of the
   -- same name as M.
-  MemberRel path      ('Property k) 'Nothing             'AssignableTo (Optional m) = 'Success
+  MemberRel path      c ('Property k) 'Nothing             'AssignableTo (Optional m) = 'Success
   -- (the above case is the only circumstance where it's ok for the N
   -- to be 'Nothing)
-  MemberRel (_k ': p) k             'Nothing             'AssignableTo m            =
+  MemberRel (_k ': p) c k             'Nothing             'AssignableTo m            =
     'MemberFailure '(k, "missing in type being assigned to, in the context", p)
-  MemberRel (_k ': p) k             'Nothing             'SubtypeOf    m            =
+  MemberRel (_k ': p) c k             'Nothing             'SubtypeOf    m            =
     'MemberFailure '(k, "missing in supertype, in the context", p)
   -- TSS (3.10.3/4):
   -- M is a property and S has an apparent property N where
   --   * M and N have the same name,
   --   * the type of N is assignable to / subtype of M,
-  MemberRel path      ('Property k) ('Just (Optional n)) r             (Optional m) = Rel path n r m
+  MemberRel path      c ('Property k) ('Just (Optional n)) r             (Optional m) = Rel path c n r m
   --   * if M is a required property, N is also a required property
-  MemberRel (_k ': p) ('Property k) ('Just (Optional n)) 'AssignableTo m            =
+  MemberRel (_k ': p) c ('Property k) ('Just (Optional n)) 'AssignableTo m            =
     'MemberFailure '( 'Property k, "is optional, but required in the type being assigned to, in the context", p)
-  MemberRel (_k ': p) ('Property k) ('Just (Optional n)) 'SubtypeOf    m            =
+  MemberRel (_k ': p) c ('Property k) ('Just (Optional n)) 'SubtypeOf    m            =
     'MemberFailure '( 'Property k, "is optional, but required in the supertype, in the context", p)
-  MemberRel path      ('Property k) ('Just n)            r             (Optional m) = Rel path n r m
-  MemberRel path      ('Property k) ('Just n)            r             m            = Rel path n r m
+  MemberRel path      c ('Property k) ('Just n)            r             (Optional m) = Rel path c n r m
+  MemberRel path      c ('Property k) ('Just n)            r             m            = Rel path c n r m
   -- TSS (3.10.3/4):
   -- FIXME: figure out whether we can handle generics in this way...
   --
@@ -269,15 +276,15 @@ type family MemberRel path k r n m where
   -- parameters declared by M and N (if any),
   --
   --   * the signatures are of the same kind (call or construct),
-  MemberRel path      'Call         ('Just n)            r             m            = CallRel path n r m
-  MemberRel path      'Constructor  ('Just n)            r             m            = CallRel path n r m
+  MemberRel path      c 'Call         ('Just n)            r             m            = CallRel path c n r m
+  MemberRel path      c 'Constructor  ('Just n)            r             m            = CallRel path c n r m
   -- TSS (3.10.3/4): M is a string index signature of type U and S has
   -- an apparent string index signature of a type that is assignable
   -- to / subtype of U.
-  MemberRel path      'StringIndex  ('Just n)            r             m            = Rel path n r m
-  MemberRel path      'NumericIndex ('Just n)            r             m            = Rel path n r m
+  MemberRel path      c 'StringIndex  ('Just n)            r             m            = Rel path c n r m
+  MemberRel path      c 'NumericIndex ('Just n)            r             m            = Rel path c n r m
 
-type family CallRel path n r m where
+type family CallRel path c n r m where
   -- FIXME; handle rest parameter
   --
   --   * M has a rest parameter or the number of non-optional
@@ -290,21 +297,21 @@ type family CallRel path n r m where
   --
   --   * the result type of M is Void, or the result type of N is
   --     assignable to that of M.
-  CallRel path (np -> nr) r (mp -> mr) =
+  CallRel path c (np -> nr) r (mp -> mr) =
     --FIXME: extend path to specify which arg is involved
     BothSuccess
       (EitherSuccess
-        (Rel path (UnOptional np) r (UnOptional mp))
-        (Rel path (UnOptional mp) r (UnOptional np)))
-      (CallRel path nr r mr)
-  CallRel path n r m = CallRel' path n r m
+        (Rel path c (UnOptional np) r (UnOptional mp))
+        (Rel path c (UnOptional mp) r (UnOptional np)))
+      (CallRel path c nr r mr)
+  CallRel path c n r m = CallRel' path c n r m
 
-type family CallRel' path n r m where
-  CallRel' path (Optional np -> nr) r m = CallRel' path nr r m
-  CallRel' path (np -> nr) r m =
+type family CallRel' path c n r m where
+  CallRel' path c (Optional np -> nr) r m = CallRel' path c nr r m
+  CallRel' path c (np -> nr) r m =
     'ArgFailure '("too many arguments in function, in the context", path)
-  CallRel' path n r (mp -> mr) = CallRel' path n r mr
-  CallRel' path n r m = Rel path n r m
+  CallRel' path c n r (mp -> mr) = CallRel' path c n r mr
+  CallRel' path c n r m = Rel path c n r m
 
 type family UnOptional a where
   UnOptional (Optional a) = a
@@ -318,8 +325,8 @@ type family BothSuccess a b where
 type family EitherSuccess a b where
   EitherSuccess 'Success b = 'Success
   EitherSuccess a 'Success = 'Success
-  -- FIXME: should we also clarify that b would also satisfy it?
-  EitherSuccess a b = a
+  -- FIXME: should we also clarify that a would also satisfy it?
+  EitherSuccess a b = b
 
 -- List of rules I'm ignoring as they're irrelevant to this implementation:
 --

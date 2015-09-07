@@ -2,8 +2,6 @@
 
 * Handle type "identical" relationship properly
 
-* Handle recursive types (3.10.7)
-
 * Tuple types
 
 * Function type
