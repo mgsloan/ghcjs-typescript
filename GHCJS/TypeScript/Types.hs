@@ -183,6 +183,11 @@ data RelResult a b c
   | MemberFailure b
   | ArgFailure c
 
+type instance a == b = EqRelResult a b
+type family EqRelResult (x :: RelResult a b c) (y :: RelResult a b c) :: Bool where
+  EqRelResult x x = 'True
+  EqRelResult x y = 'False
+
 type Mismatch path a r b = 'MismatchFailure '(a, "isn't", r, b, "in the context", path)
 
 data Relationship
