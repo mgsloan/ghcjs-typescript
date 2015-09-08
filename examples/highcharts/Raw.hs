@@ -2,16 +2,18 @@
 {-# LANGUAGE DataKinds                  #-}
 {-# LANGUAGE FlexibleContexts           #-}
 {-# LANGUAGE FlexibleInstances          #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE NoImplicitPrelude          #-}
+{-# LANGUAGE PolyKinds                  #-}
+{-# LANGUAGE RankNTypes                 #-}
 {-# LANGUAGE TypeFamilies               #-}
 {-# LANGUAGE TypeOperators              #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE PolyKinds                  #-}
 {-# LANGUAGE UndecidableInstances       #-}
 module Raw where
-import qualified GHCJS.Types as GHCJS
-import qualified GHCJS.Marshal as GHCJS
 import qualified GHCJS.TypeScript.Types as TS
 import GHCJS.TypeScript.Types ((:|:))
+import qualified GHCJS.Marshal as GHCJS
+import qualified GHCJS.Types as GHCJS
 import qualified Data.Typeable
 newtype Event = Event (GHCJS.JSRef Event)
 newtype HTMLElement = HTMLElement (GHCJS.JSRef HTMLElement)
@@ -507,6 +509,7 @@ newtype HighchartsChartObject = HighchartsChartObject (GHCJS.JSRef (HighchartsCh
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsChartObject =
   ('[ TS.Method "addAxis" (HighchartsAxisOptions -> TS.Optional (TS.Boolean) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) -> HighchartsAxisObject)
+    , TS.Method "addSeries" (TS.Any {- forall t. (t TS.:= HighchartsIndividualSeriesOptions) => t -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) -> t -})
     , TS.Method "addSeriesAsDrilldown" (HighchartsPointObject -> HighchartsSeriesOptions -> TS.Void)
     , '( 'TS.Property "container", HTMLElement )
     , TS.Method "destroy" (TS.Void)
