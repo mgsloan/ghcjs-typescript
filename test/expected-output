@@ -1,21 +1,169 @@
-[1 of 1] Compiling Main             ( test/input.hs, test/input.js_o )
+[1 of 1] Compiling Main             ( test/input.hs, test/dist/Main.js_o )
 
 
-test/input.hs:53:15:
+test/input.hs:45:12:
     Couldn't match type ‘'MemberFailure
                            '('Property "z",
                              "missing in type being assigned to, in the context",
                              '[])’
                    with ‘'Success’
-    In the expression: cast xy :: XYZ
-    In an equation for ‘bad_XYToXYZ’: bad_XYToXYZ = cast xy :: XYZ
+    In the expression: cast :: XY -> XYZ
+    In an equation for ‘bad0’: bad0 = cast :: XY -> XYZ
+    In an equation for ‘ex1’:
+        ex1
+          = undefined
+          where
+              ok0 = cast :: XY -> XY
+              bad0 = cast :: XY -> XYZ
+              ok1 = cast :: XYZ -> XY
+              ok2 = cast :: XYOptionalZ -> XYOptionalZ
+              ....
 
-test/input.hs:57:21:
+test/input.hs:51:12:
     Couldn't match type ‘'MemberFailure
                            '('Property "z",
                              "is optional, but required in the type being assigned to, in the context",
                              '[])’
                    with ‘'Success’
-    In the expression: cast xymz :: XYZ
-    In an equation for ‘bad_XYMaybeZToXYZ’:
-        bad_XYMaybeZToXYZ = cast xymz :: XYZ
+    In the expression: cast :: XYOptionalZ -> XYZ
+    In an equation for ‘bad1’: bad1 = cast :: XYOptionalZ -> XYZ
+    In an equation for ‘ex1’:
+        ex1
+          = undefined
+          where
+              ok0 = cast :: XY -> XY
+              bad0 = cast :: XY -> XYZ
+              ok1 = cast :: XYZ -> XY
+              ok2 = cast :: XYOptionalZ -> XYOptionalZ
+              ....
+
+test/input.hs:53:12:
+    Couldn't match type ‘'MismatchFailure
+                           '(Number,
+                             "isn't",
+                             'AssignableTo,
+                             Number,
+                             "in the context",
+                             '['Property "z"])’
+                   with ‘'Success’
+    In the expression: cast :: XYZ -> XYStringZ
+    In an equation for ‘bad2’: bad2 = cast :: XYZ -> XYStringZ
+    In an equation for ‘ex1’:
+        ex1
+          = undefined
+          where
+              ok0 = cast :: XY -> XY
+              bad0 = cast :: XY -> XYZ
+              ok1 = cast :: XYZ -> XY
+              ok2 = cast :: XYOptionalZ -> XYOptionalZ
+              ....
+
+test/input.hs:54:12:
+    Couldn't match type ‘'MismatchFailure
+                           '(TS.String,
+                             "isn't",
+                             'AssignableTo,
+                             Number,
+                             "in the context",
+                             '['Property "z"])’
+                   with ‘'Success’
+    In the expression: cast :: XYStringZ -> XYZ
+    In an equation for ‘bad3’: bad3 = cast :: XYStringZ -> XYZ
+    In an equation for ‘ex1’:
+        ex1
+          = undefined
+          where
+              ok0 = cast :: XY -> XY
+              bad0 = cast :: XY -> XYZ
+              ok1 = cast :: XYZ -> XY
+              ok2 = cast :: XYOptionalZ -> XYOptionalZ
+              ....
+
+test/input.hs:73:11:
+    Couldn't match type ‘'MemberFailure
+                           '('Property "z",
+                             "missing in type being assigned to, in the context",
+                             '['Property "position"])’
+                   with ‘'Success’
+    In the expression: cast :: Circle -> Sphere
+    In an equation for ‘bad’: bad = cast :: Circle -> Sphere
+    In an equation for ‘ex2’:
+        ex2
+          = undefined
+          where
+              ok = cast :: Sphere -> Circle
+              bad = cast :: Circle -> Sphere
+
+test/input.hs:96:12:
+    Couldn't match type ‘'MemberFailure
+                           '('Property "z",
+                             "missing in type being assigned to, in the context",
+                             '['Property "position", 'Call])’
+                   with ‘'Success’
+    In the expression: cast :: OffsetCircle -> OffsetSphere
+    In an equation for ‘bad0’:
+        bad0 = cast :: OffsetCircle -> OffsetSphere
+    In an equation for ‘ex3’:
+        ex3
+          = undefined
+          where
+              ok0 = cast :: OffsetSphere -> OffsetCircle
+              bad0 = cast :: OffsetCircle -> OffsetSphere
+              ok1 = cast :: MeasureCircle -> MeasureSphere
+              ok2 = cast :: MeasureSphere -> MeasureCircle
+
+test/input.hs:111:12:
+    Couldn't match type ‘'MemberFailure
+                           '('Property "z",
+                             "missing in type being assigned to, in the context",
+                             '[])’
+                   with ‘'Success’
+    In the expression: cast :: (XY :|: XYZ) -> XYZ
+    In an equation for ‘bad0’: bad0 = cast :: (XY :|: XYZ) -> XYZ
+    In an equation for ‘ex4’:
+        ex4
+          = undefined
+          where
+              ok0 = cast :: XY -> (XY :|: Sphere)
+              ok1 = cast :: XY -> (Sphere :|: XY)
+              ok3 = cast :: XYZ -> (XY :|: XYZ)
+              ok4 = cast :: XYZ -> (XYZ :|: XY)
+              ....
+
+test/input.hs:112:12:
+    Couldn't match type ‘'MemberFailure
+                           '('Property "z",
+                             "missing in type being assigned to, in the context",
+                             '[])’
+                   with ‘'Success’
+    In the expression: cast :: (XY :|: XYOptionalZ) -> XYZ
+    In an equation for ‘bad1’:
+        bad1 = cast :: (XY :|: XYOptionalZ) -> XYZ
+    In an equation for ‘ex4’:
+        ex4
+          = undefined
+          where
+              ok0 = cast :: XY -> (XY :|: Sphere)
+              ok1 = cast :: XY -> (Sphere :|: XY)
+              ok3 = cast :: XYZ -> (XY :|: XYZ)
+              ok4 = cast :: XYZ -> (XYZ :|: XY)
+              ....
+
+test/input.hs:113:12:
+    Couldn't match type ‘'MemberFailure
+                           '('Property "z",
+                             "missing in type being assigned to, in the context",
+                             '[])’
+                   with ‘'Success’
+    In the expression: cast :: XY -> ((Circle :|: Sphere) :|: XYZ)
+    In an equation for ‘bad2’:
+        bad2 = cast :: XY -> ((Circle :|: Sphere) :|: XYZ)
+    In an equation for ‘ex4’:
+        ex4
+          = undefined
+          where
+              ok0 = cast :: XY -> (XY :|: Sphere)
+              ok1 = cast :: XY -> (Sphere :|: XY)
+              ok3 = cast :: XYZ -> (XY :|: XYZ)
+              ok4 = cast :: XYZ -> (XYZ :|: XY)
+              ....
