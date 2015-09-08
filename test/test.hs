@@ -7,7 +7,7 @@ import System.Exit (exitFailure, exitSuccess)
 
 main :: IO ()
 main = do
-  (_, actual1, actual2) <- readProcessWithExitCode "stack" ["exec", "--", "ghcjs", "-i", "-itest", "test/input.hs"] ""
+  (_, actual1, actual2) <- readProcessWithExitCode "stack" ["exec", "--", "ghcjs", "-i", "-itest", "test/input.hs", "-outputdir", "test/dist"] ""
   let actual = actual1 ++ "\n" ++ actual2
   writeFile "test/actual-output" actual
   let expectedPath = "test/expected-output"
