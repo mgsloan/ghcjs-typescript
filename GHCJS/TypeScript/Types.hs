@@ -45,7 +45,7 @@ type HasProperty obj k t =
 --   Also constrains that obj and t are coercible with JSRef, as this is
 --   always the case.
 type HasMember obj k t =
-  ( StripOptional (LookupMember k (Members obj)) ~ Just t
+  ( GetMember k obj ~ 'GetMemberSuccess t
   , IsJSRef obj
   , IsJSRef t
   )
@@ -53,13 +53,33 @@ type HasMember obj k t =
 type IsJSRef a = Coercible a (JSRef O)
 data O
 
+data GetMemberResult obj k t
+  = GetMemberFailedFor k obj
+  | GetMemberSuccess t
+
+type instance a == b = EqGetMemberResult a b
+type family EqGetMemberResult (x :: GetMemberResult obj k t) (y :: GetMemberResult obj k t) :: Bool where
+  EqGetMemberResult x x = 'True
+  EqGetMemberResult x y = 'False
+
+-- | Helper to convert the result of "LookupMember"
+type GetMember k obj = GetMember' k obj (LookupMember k (Members obj))
+type family GetMember' (k :: Label)
+                       (obj :: *)
+                       (m :: Maybe *)
+                       :: GetMemberResult * Label * where
+  GetMember' k obj 'Nothing = 'GetMemberFailedFor k obj
+  GetMember' k obj ('Just t) = 'GetMemberSuccess t
+
 type family StripOptional t where
   StripOptional ('Just (Optional t)) = 'Just t
   StripOptional t = t
 
 -- | Given a 'Label', looks up the type of the member.  Yields
 -- 'Nothing' if it's not found.
-type family LookupMember (k :: Label) (fs :: [(Label, *)]) :: Maybe * where
+type family LookupMember (k :: Label)
+                         (fs :: [(Label, *)])
+                         :: Maybe * where
   LookupMember k '[] = 'Nothing
   LookupMember k ('(k, x) ': xs) = 'Just x
   LookupMember k ('(kother, x) ': xs) = LookupMember k xs

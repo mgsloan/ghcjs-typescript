@@ -33,7 +33,7 @@ foreign import javascript unsafe "$1.apply($2, $3)"
   js_apply :: JSRef func -> JSRef this -> JSRef args -> IO (JSRef result)
 
 type HasCall obj ts ty r =
-  ( LookupMember 'Call (Members obj) ~ 'Just ty
+  ( GetMember 'Call obj ~ 'GetMemberSuccess ty
   , HVectToRefList (HVect ts)
   , InvokeResult ty ts ~ r
   , IsJSRef obj
@@ -85,7 +85,7 @@ impossible :: a
 impossible = error "Impossible type in constructor invocation?!?"
 
 type HasConstructor obj ts ty r =
-  ( LookupMember 'Constructor (Members obj) ~ 'Just ty
+  ( GetMember 'Constructor obj ~ 'GetMemberSuccess ty
   , InvokeConstructor ts
   , InvokeResult ty ts ~ r
   , IsJSRef obj
