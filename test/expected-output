@@ -42,7 +42,7 @@ test/input.hs:53:12:
                            '(Number,
                              "isn't",
                              'AssignableTo,
-                             Number,
+                             TS.String,
                              "in the context",
                              '['Property "z"])’
                    with ‘'Success’

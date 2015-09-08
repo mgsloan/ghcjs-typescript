@@ -223,8 +223,8 @@ type family Rel path c s (r :: Relationship) t where
   Rel path c Boolean r Boolean = 'Success
   Rel path c String r String = 'Success
   Rel path c s r Number = Mismatch path s r Number
-  Rel path c s r Boolean = Mismatch path s r Number
-  Rel path c s r String = Mismatch path s r Number
+  Rel path c s r Boolean = Mismatch path s r Boolean
+  Rel path c s r String = Mismatch path s r String
   -- TSS (3.10.3/4): S is an object type, a type parameter, or the
   -- Number, Boolean, or String primitive type, T is an object type,
   -- and for each member M in T, one of the following is true:
