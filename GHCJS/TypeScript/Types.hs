@@ -224,9 +224,6 @@ type family Rel path c s (r :: Relationship) t where
   -- assignable to at least one constituent type of T.
   Rel path c s r (t1 :|: t2) = EitherSuccess (Rel path c s r t1) (Rel path c s r t2)
   -- Only matching primitive types are subtypes of primitive types.
-  Rel path c Number r Number = 'Success
-  Rel path c Boolean r Boolean = 'Success
-  Rel path c String r String = 'Success
   Rel path c s r Number = Mismatch path s r Number
   Rel path c s r Boolean = Mismatch path s r Boolean
   Rel path c s r String = Mismatch path s r String
