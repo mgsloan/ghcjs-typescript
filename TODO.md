@@ -15,6 +15,25 @@
 * Follow excess properties for object literal creation
   https://github.com/Microsoft/TypeScript/commit/bf72629301f7b937673a51b54722f91465ac41e8
 
+* Use types generated from lib.d.ts.  Once this happens, the following
+  changes should be made:
+
+  - Remove Array type
+
+  - Consider how 'newObj' should handle the fact that {} extends Object
+
+* More functions for anonymous objects
+
+  - Set 'Call member - is this possible?
+
+  - Set 'Constructor member - is this possible?
+
+  - Add indexing (need to follow signature rules + only have one index set)
+
+* Revisit safety decisions on FFI
+
+* Use (:::) and (::?) to define members
+
 * Follow index signature rules:
   (for extends, TSS(7.1)) All properties of the interface must
   satisfy the constraints implied by the index signatures of the

@@ -14,8 +14,8 @@ import Data.Type.Bool
 import Data.Type.Equality
 import Data.Typeable
 import GHC.TypeLits
-import GHCJS.Marshal
-import GHCJS.Prim
+import GHCJS.Marshal (ToJSRef, FromJSRef)
+import GHCJS.Prim (JSRef(..))
 import Prelude hiding (String)
 
 --------------------------------------------------------------------------------
@@ -71,10 +71,6 @@ type family GetMember' (k :: Label)
   GetMember' k obj 'Nothing = 'GetMemberFailedFor k obj
   GetMember' k obj ('Just t) = 'GetMemberSuccess t
 
-type family StripOptional t where
-  StripOptional ('Just (Optional t)) = 'Just t
-  StripOptional t = t
-
 -- | Given a 'Label', looks up the type of the member.  Yields
 -- 'Nothing' if it's not found.
 type family LookupMember (k :: Label)
@@ -110,23 +106,19 @@ type family Error (x :: k1) :: k2
 
 -- | When this is wrapped around a property type, indicates that it is
 -- optional.
-newtype Optional a = Optional a
-  deriving (Typeable, ToJSRef, FromJSRef)
+data Optional a
+  deriving (Typeable)
 
 -- | When this is wrapped around a function argument, indicates that
 -- it is the "rest parameter".  Must be the last argument of the
 -- function.
-newtype Rest a = Rest a
-  deriving (Typeable, ToJSRef, FromJSRef)
-
-data Specialize a
+data Rest a
   deriving (Typeable)
 
--- | Convenient way to declare a method.
-type Method l f = '( 'Property l, Object '[ '( 'Call, f ) ] )
-
--- | Convenient way to declare an optional method.
-type OptionalMethod l f = '( 'Property l, Optional (Object '[ '( 'Call, f ) ]) )
+-- | When this is found in a function argument, indicates that
+-- it is a string argument which must match the type level string.
+data Specialize str
+  deriving (Typeable)
 
 --------------------------------------------------------------------------------
 -- Primitives / built in types
@@ -138,7 +130,6 @@ newtype Null      = Null      (JSRef Null)      deriving (Typeable, ToJSRef, Fro
 newtype Number    = Number    (JSRef Number)    deriving (Typeable, ToJSRef, FromJSRef)
 newtype Boolean   = Boolean   (JSRef Boolean)   deriving (Typeable, ToJSRef, FromJSRef)
 newtype String    = String    (JSRef String)    deriving (Typeable, ToJSRef, FromJSRef)
-newtype Array a   = Array     (JSRef (Array a)) deriving (Typeable, ToJSRef, FromJSRef)
 
 -- FIXME TSS(3.10.1): The apparent members of the primitive types
 -- Number, Boolean, and String are the apparent members of the global
@@ -149,15 +140,6 @@ newtype Array a   = Array     (JSRef (Array a)) deriving (Typeable, ToJSRef, Fro
 type instance Members Any = '[]
 type instance Members Undefined = '[]
 type instance Members Null = '[]
-type instance Members (Array a) = '[ '( 'NumericIndex, a ) ]
-
---------------------------------------------------------------------------------
--- Object
-
-newtype Object (fs :: [(Label, *)]) = Object (JSRef (Object fs))
-  deriving (Typeable, ToJSRef, FromJSRef)
-
-type instance Members (Object fs) = fs
 
 --------------------------------------------------------------------------------
 -- Union

@@ -11,22 +11,21 @@
 {-# LANGUAGE ScopedTypeVariables        #-}
 module Main where
 
-import GHCJS.TypeScript.Types as TS
-import GHCJS.TypeScript.Object as TS
-import GHCJS.TypeScript.Function as TS
+import GHCJS.TypeScript as TS
 import Data.Coerce
 import GHCJS.Types (JSRef(..))
 import GHCJS.Foreign
 
 main = putStrLn "Hi!" -- unused
 
--- Ex1: Casting objects built from primitives
+--------------------------------------------------------------------------------
+-- Casting objects built from primitives
 
 newtype XY = XY (JSRef XY)
 type instance Members XY =
-  ('[ '( 'TS.Property "x", Number )
-    , '( 'TS.Property "y", Number )
-    ])
+  '[ "x" ::: Number
+   , "y" ::: Number
+   ]
 
 type XYZ = XYZ' Number
 type XYOptionalZ = XYZ' (TS.Optional Number)
@@ -34,10 +33,10 @@ type XYStringZ = XYZ' TS.String
 
 newtype XYZ' a = XYZ' (JSRef (XYZ' a))
 type instance Members (XYZ' a) =
-  ('[ '( 'TS.Property "x", Number )
-    , '( 'TS.Property "y", Number )
-    , '( 'TS.Property "z", a )
-    ])
+  '[ "x" ::: Number
+   , "y" ::: Number
+   , "z" ::: a
+   ]
 
 ex1 = undefined
   where
@@ -53,42 +52,44 @@ ex1 = undefined
     bad2 = cast :: XYZ -> XYStringZ
     bad3 = cast :: XYStringZ -> XYZ
 
--- Ex2: Casting objects with nested objects
+--------------------------------------------------------------------------------
+-- Casting objects with nested objects
 
 newtype Circle = Circle (JSRef Circle)
 type instance Members Circle =
-  ('[ '( 'TS.Property "position", XY )
-    , '( 'TS.Property "radius", Number )
-    ])
+  '[ "position" ::: XY
+   , "radius" ::: Number
+   ]
 
 newtype Sphere = Sphere (JSRef Sphere)
 type instance Members Sphere =
-  ('[ '( 'TS.Property "position", XYZ )
-    , '( 'TS.Property "radius", Number )
-    ])
+  '[ "position" ::: XYZ
+   , "radius" ::: Number
+   ]
 
 ex2 = undefined
   where
     ok = cast :: Sphere -> Circle
     bad = cast :: Circle -> Sphere
 
--- Ex3: Casting functions
+--------------------------------------------------------------------------------
+-- Casting functions
 
 newtype OffsetCircle = OffsetCircle (JSRef OffsetCircle)
 type instance Members OffsetCircle =
-  ('[ '( 'Call, XY -> Circle -> Circle ) ])
+  '[ Call (XY -> Circle -> Circle) ]
 
 newtype OffsetSphere = OffsetSphere (JSRef OffsetSphere)
 type instance Members OffsetSphere =
-  ('[ '( 'Call, XYZ -> Sphere -> Sphere ) ])
+  '[ Call (XYZ -> Sphere -> Sphere) ]
 
 newtype MeasureCircle = MeasureCircle (JSRef MeasureCircle)
 type instance Members MeasureCircle =
-  ('[ '( 'Call, Circle -> Number ) ])
+  '[ Call (Circle -> Number) ]
 
 newtype MeasureSphere = MeasureSphere (JSRef MeasureSphere)
 type instance Members MeasureSphere =
-  ('[ '( 'Call, Sphere -> Number ) ])
+  '[ Call (Sphere -> Number) ]
 
 ex3 = undefined
   where
@@ -97,7 +98,8 @@ ex3 = undefined
     ok1 = cast :: MeasureCircle -> MeasureSphere
     ok2 = cast :: MeasureSphere -> MeasureCircle
 
--- Ex4: Union types
+--------------------------------------------------------------------------------
+-- Casting union types
 
 ex4 = undefined
   where
@@ -112,19 +114,20 @@ ex4 = undefined
     bad1 = cast :: (XY :|: XYOptionalZ) -> XYZ
     bad2 = cast :: XY -> (Circle :|: Sphere :|: XYZ)
 
--- Ex5: Recursive types
+--------------------------------------------------------------------------------
+-- Casting recursive types
 
 newtype Linked = Linked (JSRef Linked)
 type instance Members Linked  =
-  ('[ '( 'Property "next", Linked ) ])
+  '[ "next" ::: Linked ]
 
 newtype LinkedA = LinkedA (JSRef LinkedA)
 type instance Members LinkedA  =
-  ('[ '( 'Property "next", LinkedB ) ])
+  '[ "next" ::: LinkedB ]
 
 newtype LinkedB = LinkedB (JSRef LinkedB)
 type instance Members LinkedB  =
-  ('[ '( 'Property "next", LinkedA ) ])
+  '[ "next" ::: LinkedA ]
 
 ex5 = undefined
   where
