@@ -10,8 +10,8 @@
 {-# LANGUAGE TypeOperators              #-}
 {-# LANGUAGE UndecidableInstances       #-}
 module Raw where
-import qualified GHCJS.TypeScript.Types as TS
-import GHCJS.TypeScript.Types ((:|:))
+import qualified GHCJS.TypeScript as TS
+import GHCJS.TypeScript (type (:|:), type (:::), type (::?))
 import qualified GHCJS.Marshal as GHCJS
 import qualified GHCJS.Types as GHCJS
 import qualified Data.Typeable
@@ -22,56 +22,54 @@ newtype Function = Function (GHCJS.JSRef Function)
 newtype HighchartsAnimation = HighchartsAnimation (GHCJS.JSRef (HighchartsAnimation))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAnimation =
-  ('[ '( 'TS.Property "duration", TS.Optional (TS.Number) )
-    , '( 'TS.Property "easing", TS.Optional (TS.String) )
+  ('[ "duration" ::? TS.Number
+    , "easing" ::? TS.String
     ])
 
 newtype HighchartsAreaChart = HighchartsAreaChart (GHCJS.JSRef (HighchartsAreaChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAreaChart =
-  ('[ '( 'TS.Property "allowPointSelect", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "connectEnds", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "connectNulls", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "cropThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "dashStyle", TS.Optional (TS.String) )
-    , '( 'TS.Property "dataLabels", TS.Optional (HighchartsDataLabels) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "fillColor", TS.Optional ((TS.String) :|: (HighchartsGradient)) )
-    , '( 'TS.Property "fillOpacity", TS.Optional (TS.Number) )
-    , '( 'TS.Property "linkedTo", TS.Optional (TS.String) )
-    , '( 'TS.Property "lineColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "marker", TS.Optional (HighchartsMarker) )
-    , '( 'TS.Property "negativeColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "negativeFillColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "allowPointSelect" ::? TS.Boolean
+    , "animation" ::? TS.Boolean
+    , "color" ::? TS.String
+    , "connectEnds" ::? TS.Boolean
+    , "connectNulls" ::? TS.Boolean
+    , "cropThreshold" ::? TS.Number
+    , "cursor" ::? TS.String
+    , "dashStyle" ::? TS.String
+    , "dataLabels" ::? HighchartsDataLabels
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "fillColor" ::? (TS.String :|: HighchartsGradient)
+    , "fillOpacity" ::? TS.Number
+    , "linkedTo" ::? TS.String
+    , "lineColor" ::? TS.String
+    , "lineWidth" ::? TS.Number
+    , "marker" ::? HighchartsMarker
+    , "negativeColor" ::? TS.String
+    , "negativeFillColor" ::? TS.String
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "pointInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPlacement", TS.Optional ((TS.String) :|: (TS.Number)) )
-    , '( 'TS.Property "pointStart", TS.Optional (TS.Number) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "showCheckbox", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "stacking", TS.Optional (TS.String) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsAreaStates )
+    , "pointInterval" ::? TS.Number
+    , "pointPlacement" ::? (TS.String :|: TS.Number)
+    , "pointStart" ::? TS.Number
+    , "selected" ::? TS.Boolean
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "showCheckbox" ::? TS.Boolean
+    , "showInLegend" ::? TS.Boolean
+    , "stacking" ::? TS.String
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsAreaStates
           ])
-      ) )
-    , '( 'TS.Property "step", TS.Optional (TS.String) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "threshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "trackByArea", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "turboThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "zIndex", TS.Optional (TS.Number) )
+    , "step" ::? TS.String
+    , "stickyTracking" ::? TS.Boolean
+    , "threshold" ::? TS.Number
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "trackByArea" ::? TS.Boolean
+    , "turboThreshold" ::? TS.Number
+    , "visible" ::? TS.Boolean
+    , "zIndex" ::? TS.Number
     ])
 
 newtype HighchartsAreaChartSeriesOptions = HighchartsAreaChartSeriesOptions (GHCJS.JSRef (HighchartsAreaChartSeriesOptions))
@@ -82,58 +80,56 @@ type instance TS.Members HighchartsAreaChartSeriesOptions = TS.Extends '[Highcha
 newtype HighchartsAreaCheckboxEvent = HighchartsAreaCheckboxEvent (GHCJS.JSRef (HighchartsAreaCheckboxEvent))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAreaCheckboxEvent = TS.Extends '[Event]
-  ('[ '( 'TS.Property "checked", TS.Boolean )
+  ('[ "checked" ::: TS.Boolean
     ])
 
 newtype HighchartsAreaClickEvent = HighchartsAreaClickEvent (GHCJS.JSRef (HighchartsAreaClickEvent))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAreaClickEvent = TS.Extends '[Event]
-  ('[ '( 'TS.Property "point", HighchartsPointObject )
+  ('[ "point" ::: HighchartsPointObject
     ])
 
 newtype HighchartsAreaRangeChart = HighchartsAreaRangeChart (GHCJS.JSRef (HighchartsAreaRangeChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAreaRangeChart =
-  ('[ '( 'TS.Property "allowPointSelect", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "connectNulls", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "cropThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "dashStyle", TS.Optional (TS.String) )
-    , '( 'TS.Property "dataLabels", TS.Optional (HighchartsRangeDataLabels) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "fillColor", TS.Optional ((TS.String) :|: (HighchartsGradient)) )
-    , '( 'TS.Property "fillOpacity", TS.Optional (TS.Number) )
-    , '( 'TS.Property "lineColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "linkedTo", TS.Optional (TS.String) )
-    , '( 'TS.Property "negativeColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "negativeFillColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "allowPointSelect" ::? TS.Boolean
+    , "animation" ::? TS.Boolean
+    , "color" ::? TS.String
+    , "connectNulls" ::? TS.Boolean
+    , "cropThreshold" ::? TS.Number
+    , "cursor" ::? TS.String
+    , "dashStyle" ::? TS.String
+    , "dataLabels" ::? HighchartsRangeDataLabels
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "fillColor" ::? (TS.String :|: HighchartsGradient)
+    , "fillOpacity" ::? TS.Number
+    , "lineColor" ::? TS.String
+    , "lineWidth" ::? TS.Number
+    , "linkedTo" ::? TS.String
+    , "negativeColor" ::? TS.String
+    , "negativeFillColor" ::? TS.String
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "pointInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPlacement", TS.Optional ((TS.String) :|: (TS.Number)) )
-    , '( 'TS.Property "pointStart", TS.Optional (TS.Number) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "showCheckbox", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "stacking", TS.Optional (TS.String) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsAreaStates )
+    , "pointInterval" ::? TS.Number
+    , "pointPlacement" ::? (TS.String :|: TS.Number)
+    , "pointStart" ::? TS.Number
+    , "selected" ::? TS.Boolean
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "showCheckbox" ::? TS.Boolean
+    , "showInLegend" ::? TS.Boolean
+    , "stacking" ::? TS.String
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsAreaStates
           ])
-      ) )
-    , '( 'TS.Property "step", TS.Optional (TS.String) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "threshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "trackByArea", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "turboThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
+    , "step" ::? TS.String
+    , "stickyTracking" ::? TS.Boolean
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "threshold" ::? TS.Number
+    , "trackByArea" ::? TS.Boolean
+    , "turboThreshold" ::? TS.Number
+    , "visible" ::? TS.Boolean
     ])
 
 newtype HighchartsAreaRangeChartSeriesOptions = HighchartsAreaRangeChartSeriesOptions (GHCJS.JSRef (HighchartsAreaRangeChartSeriesOptions))
@@ -144,7 +140,7 @@ type instance TS.Members HighchartsAreaRangeChartSeriesOptions = TS.Extends '[Hi
 newtype HighchartsAreaSplineChart = HighchartsAreaSplineChart (GHCJS.JSRef (HighchartsAreaSplineChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAreaSplineChart = TS.Extends '[HighchartsAreaChart]
-  ('[ '( 'TS.Property "connectEnds", TS.Optional (TS.Boolean) )
+  ('[ "connectEnds" ::? TS.Boolean
     ])
 
 newtype HighchartsAreaSplineChartSeriesOptions = HighchartsAreaSplineChartSeriesOptions (GHCJS.JSRef (HighchartsAreaSplineChartSeriesOptions))
@@ -165,168 +161,165 @@ type instance TS.Members HighchartsAreaSplineRangeChartSeriesOptions = TS.Extend
 newtype HighchartsAreaStates = HighchartsAreaStates (GHCJS.JSRef (HighchartsAreaStates))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAreaStates =
-  ('[ '( 'TS.Property "enabled", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "marker", TS.Optional (HighchartsMarker) )
+  ('[ "enabled" ::? TS.Boolean
+    , "lineWidth" ::? TS.Number
+    , "marker" ::? HighchartsMarker
     ])
 
 newtype HighchartsAxisEvent = HighchartsAxisEvent (GHCJS.JSRef (HighchartsAxisEvent))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAxisEvent = TS.Extends '[Event]
-  ('[ '( 'TS.Property "min", TS.Number )
-    , '( 'TS.Property "max", TS.Number )
+  ('[ "min" ::: TS.Number
+    , "max" ::: TS.Number
     ])
 
 newtype HighchartsAxisLabels = HighchartsAxisLabels (GHCJS.JSRef (HighchartsAxisLabels))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAxisLabels =
-  ('[ '( 'TS.Property "align", TS.Optional (TS.String) )
-    , '( 'TS.Property "enabled", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "formatter", TS.Optional ((TS.String)) )
-    , '( 'TS.Property "overflow", TS.Optional (TS.String) )
-    , '( 'TS.Property "rotation", TS.Optional (TS.Number) )
-    , '( 'TS.Property "staggerLines", TS.Optional (TS.Number) )
-    , '( 'TS.Property "step", TS.Optional (TS.Number) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "useHTML", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "x", TS.Optional (TS.Number) )
-    , '( 'TS.Property "y", TS.Optional (TS.Number) )
+  ('[ "align" ::? TS.String
+    , "enabled" ::? TS.Boolean
+    , "formatter" ::? (TS.String)
+    , "overflow" ::? TS.String
+    , "rotation" ::? TS.Number
+    , "staggerLines" ::? TS.Number
+    , "step" ::? TS.Number
+    , "style" ::? HighchartsCSSObject
+    , "useHTML" ::? TS.Boolean
+    , "x" ::? TS.Number
+    , "y" ::? TS.Number
     ])
 
 newtype HighchartsAxisObject = HighchartsAxisObject (GHCJS.JSRef (HighchartsAxisObject))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAxisObject =
-  ('[ TS.Method "addPlotBand" (HighchartsPlotBands -> TS.Void)
-    , TS.Method "addPlotLine" (HighchartsPlotLines -> TS.Void)
-    , TS.Method "getExtremes" (HighchartsExtremes)
-    , TS.Method "remove" (TS.Optional (TS.Boolean) -> TS.Void)
-    , TS.Method "removePlotBand" (TS.String -> TS.Void)
-    , TS.Method "removePlotLine" (TS.String -> TS.Void)
-    , TS.Method "setCategories" (TS.Array (TS.String) -> TS.Void)
-    , TS.Method "setCategories" (TS.Array (TS.String) -> TS.Boolean -> TS.Void)
-    , TS.Method "setExtremes" (TS.Number -> TS.Number -> TS.Void)
-    , TS.Method "setExtremes" (TS.Number -> TS.Number -> TS.Boolean -> TS.Void)
-    , TS.Method "setExtremes" (TS.Number -> TS.Number -> TS.Boolean -> (TS.Boolean) :|: (HighchartsAnimation) -> TS.Void)
-    , TS.Method "setTitle" (HighchartsAxisTitle -> TS.Optional (TS.Boolean) -> TS.Void)
-    , TS.Method "toPixels" (TS.Number -> TS.Optional (TS.Boolean) -> TS.Number)
-    , TS.Method "toValue" (TS.Number -> TS.Optional (TS.Boolean) -> TS.Number)
-    , TS.Method "update" (HighchartsAxisOptions -> TS.Optional (TS.Boolean) -> TS.Void)
+  ('[ "addPlotBand" ::: TS.Fun (HighchartsPlotBands -> TS.Void)
+    , "addPlotLine" ::: TS.Fun (HighchartsPlotLines -> TS.Void)
+    , "getExtremes" ::: TS.Fun (HighchartsExtremes)
+    , "remove" ::: TS.Fun (TS.Optional (TS.Boolean) -> TS.Void)
+    , "removePlotBand" ::: TS.Fun (TS.String -> TS.Void)
+    , "removePlotLine" ::: TS.Fun (TS.String -> TS.Void)
+    , "setCategories" ::: TS.Fun ((TS.Array TS.String) -> TS.Void)
+    , "setCategories" ::: TS.Fun ((TS.Array TS.String) -> TS.Boolean -> TS.Void)
+    , "setExtremes" ::: TS.Fun (TS.Number -> TS.Number -> TS.Void)
+    , "setExtremes" ::: TS.Fun (TS.Number -> TS.Number -> TS.Boolean -> TS.Void)
+    , "setExtremes" ::: TS.Fun (TS.Number -> TS.Number -> TS.Boolean -> (TS.Boolean :|: HighchartsAnimation) -> TS.Void)
+    , "setTitle" ::: TS.Fun (HighchartsAxisTitle -> TS.Optional (TS.Boolean) -> TS.Void)
+    , "toPixels" ::: TS.Fun (TS.Number -> TS.Optional (TS.Boolean) -> TS.Number)
+    , "toValue" ::: TS.Fun (TS.Number -> TS.Optional (TS.Boolean) -> TS.Number)
+    , "update" ::: TS.Fun (HighchartsAxisOptions -> TS.Optional (TS.Boolean) -> TS.Void)
     ])
 
 newtype HighchartsAxisOptions = HighchartsAxisOptions (GHCJS.JSRef (HighchartsAxisOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAxisOptions =
-  ('[ '( 'TS.Property "allowDecimals", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "alternateGridColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "categories", TS.Optional (TS.Array (TS.String)) )
-    , '( 'TS.Property "dateTimeLabelFormats", TS.Optional (HighchartsDateTimeFormats) )
-    , '( 'TS.Property "endOnTick", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "afterSetExtremes", TS.Optional ((HighchartsAxisEvent -> TS.Void)) )
-          , '( 'TS.Property "setExtremes", TS.Optional ((HighchartsAxisEvent -> TS.Void)) )
+  ('[ "allowDecimals" ::? TS.Boolean
+    , "alternateGridColor" ::? TS.String
+    , "categories" ::? (TS.Array TS.String)
+    , "dateTimeLabelFormats" ::? HighchartsDateTimeFormats
+    , "endOnTick" ::? TS.Boolean
+    , "events" ::? TS.Obj
+        ('[ "afterSetExtremes" ::? (HighchartsAxisEvent -> TS.Void)
+          , "setExtremes" ::? (HighchartsAxisEvent -> TS.Void)
           ])
-      ) )
-    , '( 'TS.Property "gridLineColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "gridLineDashStyle", TS.Optional (TS.String) )
-    , '( 'TS.Property "gridLineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "id", TS.Optional (TS.String) )
-    , '( 'TS.Property "labels", TS.Optional (HighchartsAxisLabels) )
-    , '( 'TS.Property "lineColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "linkedTo", TS.Optional (TS.Number) )
-    , '( 'TS.Property "max", TS.Optional (TS.Number) )
-    , '( 'TS.Property "maxPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "maxZoom", TS.Optional (TS.Number) )
-    , '( 'TS.Property "min", TS.Optional (TS.Number) )
-    , '( 'TS.Property "minPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "minRange", TS.Optional (TS.Number) )
-    , '( 'TS.Property "minTickInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "minorTickColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "minorTickInterval", TS.Optional ((TS.Number) :|: (TS.String)) )
-    , '( 'TS.Property "minorTickLength", TS.Optional (TS.Number) )
-    , '( 'TS.Property "minorTickPosition", TS.Optional (TS.String) )
-    , '( 'TS.Property "minorTickWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "offset", TS.Optional (TS.Number) )
-    , '( 'TS.Property "opposite", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "plotBands", TS.Optional (HighchartsPlotBands) )
-    , '( 'TS.Property "plotLines", TS.Optional (HighchartsPlotLines) )
-    , '( 'TS.Property "reversed", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showEmpty", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showFirstLabel", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showLastLabel", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "startOfWeek", TS.Optional (TS.Number) )
-    , '( 'TS.Property "startOnTick", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "tickColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "tickInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "tickLength", TS.Optional (TS.Number) )
-    , '( 'TS.Property "tickPixelInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "tickPosition", TS.Optional (TS.String) )
-    , '( 'TS.Property "tickWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "tickmarkPlacement", TS.Optional (TS.String) )
-    , '( 'TS.Property "title", TS.Optional (HighchartsAxisTitle) )
-    , '( 'TS.Property "type", TS.Optional (TS.String) )
+    , "gridLineColor" ::? TS.String
+    , "gridLineDashStyle" ::? TS.String
+    , "gridLineWidth" ::? TS.Number
+    , "id" ::? TS.String
+    , "labels" ::? HighchartsAxisLabels
+    , "lineColor" ::? TS.String
+    , "lineWidth" ::? TS.Number
+    , "linkedTo" ::? TS.Number
+    , "max" ::? TS.Number
+    , "maxPadding" ::? TS.Number
+    , "maxZoom" ::? TS.Number
+    , "min" ::? TS.Number
+    , "minPadding" ::? TS.Number
+    , "minRange" ::? TS.Number
+    , "minTickInterval" ::? TS.Number
+    , "minorTickColor" ::? TS.String
+    , "minorTickInterval" ::? (TS.Number :|: TS.String)
+    , "minorTickLength" ::? TS.Number
+    , "minorTickPosition" ::? TS.String
+    , "minorTickWidth" ::? TS.Number
+    , "offset" ::? TS.Number
+    , "opposite" ::? TS.Boolean
+    , "plotBands" ::? HighchartsPlotBands
+    , "plotLines" ::? HighchartsPlotLines
+    , "reversed" ::? TS.Boolean
+    , "showEmpty" ::? TS.Boolean
+    , "showFirstLabel" ::? TS.Boolean
+    , "showLastLabel" ::? TS.Boolean
+    , "startOfWeek" ::? TS.Number
+    , "startOnTick" ::? TS.Boolean
+    , "tickColor" ::? TS.String
+    , "tickInterval" ::? TS.Number
+    , "tickLength" ::? TS.Number
+    , "tickPixelInterval" ::? TS.Number
+    , "tickPosition" ::? TS.String
+    , "tickWidth" ::? TS.Number
+    , "tickmarkPlacement" ::? TS.String
+    , "title" ::? HighchartsAxisTitle
+    , "type" ::? TS.String
     ])
 
 newtype HighchartsAxisTitle = HighchartsAxisTitle (GHCJS.JSRef (HighchartsAxisTitle))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsAxisTitle =
-  ('[ '( 'TS.Property "align", TS.Optional (TS.String) )
-    , '( 'TS.Property "margin", TS.Optional (TS.Number) )
-    , '( 'TS.Property "offset", TS.Optional (TS.Number) )
-    , '( 'TS.Property "rotation", TS.Optional (TS.Number) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "text", TS.Optional (TS.String) )
+  ('[ "align" ::? TS.String
+    , "margin" ::? TS.Number
+    , "offset" ::? TS.Number
+    , "rotation" ::? TS.Number
+    , "style" ::? HighchartsCSSObject
+    , "text" ::? TS.String
     ])
 
 newtype HighchartsBarChart = HighchartsBarChart (GHCJS.JSRef (HighchartsBarChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsBarChart =
-  ('[ '( 'TS.Property "allowPointSelect", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderRadius", TS.Optional (TS.Number) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "colorByPoint", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "cropThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "colors", TS.Optional (TS.Array (TS.String)) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "dataLabels", TS.Optional (HighchartsDataLabels) )
-    , '( 'TS.Property "depth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "edgeColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "edgeWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "groupPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "groupZPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "grouping", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "linkedTo", TS.Optional (TS.String) )
-    , '( 'TS.Property "minPointLength", TS.Optional (TS.Number) )
-    , '( 'TS.Property "negativeColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "allowPointSelect" ::? TS.Boolean
+    , "animation" ::? TS.Boolean
+    , "borderColor" ::? TS.String
+    , "borderRadius" ::? TS.Number
+    , "borderWidth" ::? TS.Number
+    , "color" ::? TS.String
+    , "colorByPoint" ::? TS.Boolean
+    , "cropThreshold" ::? TS.Number
+    , "colors" ::? (TS.Array TS.String)
+    , "cursor" ::? TS.String
+    , "dataLabels" ::? HighchartsDataLabels
+    , "depth" ::? TS.Number
+    , "edgeColor" ::? TS.String
+    , "edgeWidth" ::? TS.Number
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "groupPadding" ::? TS.Number
+    , "groupZPadding" ::? TS.Number
+    , "grouping" ::? TS.Boolean
+    , "linkedTo" ::? TS.String
+    , "minPointLength" ::? TS.Number
+    , "negativeColor" ::? TS.String
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "pointInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPlacement", TS.Optional (TS.String) )
-    , '( 'TS.Property "pointRange", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointStart", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "showCheckbox", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "stacking", TS.Optional (TS.String) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsBarStates )
+    , "pointInterval" ::? TS.Number
+    , "pointPadding" ::? TS.Number
+    , "pointPlacement" ::? TS.String
+    , "pointRange" ::? TS.Number
+    , "pointStart" ::? TS.Number
+    , "pointWidth" ::? TS.Number
+    , "selected" ::? TS.Boolean
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "showCheckbox" ::? TS.Boolean
+    , "showInLegend" ::? TS.Boolean
+    , "stacking" ::? TS.String
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsBarStates
           ])
-      ) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "threshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "turboThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
+    , "stickyTracking" ::? TS.Boolean
+    , "threshold" ::? TS.Number
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "turboThreshold" ::? TS.Number
+    , "visible" ::? TS.Boolean
     ])
 
 newtype HighchartsBarChartSeriesOptions = HighchartsBarChartSeriesOptions (GHCJS.JSRef (HighchartsBarChartSeriesOptions))
@@ -337,57 +330,55 @@ type instance TS.Members HighchartsBarChartSeriesOptions = TS.Extends '[Highchar
 newtype HighchartsBarStates = HighchartsBarStates (GHCJS.JSRef (HighchartsBarStates))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsBarStates = TS.Extends '[HighchartsAreaStates]
-  ('[ '( 'TS.Property "brightness", TS.Optional (TS.Number) )
+  ('[ "brightness" ::? TS.Number
     ])
 
 newtype HighchartsBoxPlotChart = HighchartsBoxPlotChart (GHCJS.JSRef (HighchartsBoxPlotChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsBoxPlotChart =
-  ('[ '( 'TS.Property "allowPointSelect", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "colorByPoint", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "colors", TS.Optional (TS.Array (TS.String)) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "depth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "edgecolor", TS.Optional (TS.String) )
-    , '( 'TS.Property "edgewidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "fillColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "groupPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "groupZPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "grouping", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "linkedTo", TS.Optional (TS.String) )
-    , '( 'TS.Property "medianColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "negativeColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "allowPointSelect" ::? TS.Boolean
+    , "color" ::? TS.String
+    , "colorByPoint" ::? TS.Boolean
+    , "colors" ::? (TS.Array TS.String)
+    , "cursor" ::? TS.String
+    , "depth" ::? TS.Number
+    , "edgecolor" ::? TS.String
+    , "edgewidth" ::? TS.Number
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "fillColor" ::? TS.String
+    , "groupPadding" ::? TS.Number
+    , "groupZPadding" ::? TS.Number
+    , "grouping" ::? TS.Boolean
+    , "lineWidth" ::? TS.Number
+    , "linkedTo" ::? TS.String
+    , "medianColor" ::? TS.String
+    , "negativeColor" ::? TS.String
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "pointInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPlacement", TS.Optional ((TS.String) :|: (TS.Number)) )
-    , '( 'TS.Property "pointRange", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointStart", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showCheckbox", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsBarStates )
+    , "pointInterval" ::? TS.Number
+    , "pointPadding" ::? TS.Number
+    , "pointPlacement" ::? (TS.String :|: TS.Number)
+    , "pointRange" ::? TS.Number
+    , "pointStart" ::? TS.Number
+    , "pointWidth" ::? TS.Number
+    , "selected" ::? TS.Boolean
+    , "showCheckbox" ::? TS.Boolean
+    , "showInLegend" ::? TS.Boolean
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsBarStates
           ])
-      ) )
-    , '( 'TS.Property "stemColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "stemDashStyle", TS.Optional (TS.String) )
-    , '( 'TS.Property "stemWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "turboThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "whiskerColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "whiskerLength", TS.Optional ((TS.Number) :|: (TS.String)) )
-    , '( 'TS.Property "whiskerWidth", TS.Optional (TS.Number) )
+    , "stemColor" ::? TS.String
+    , "stemDashStyle" ::? TS.String
+    , "stemWidth" ::? TS.Number
+    , "stickyTracking" ::? TS.Boolean
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "turboThreshold" ::? TS.Number
+    , "visible" ::? TS.Boolean
+    , "whiskerColor" ::? TS.String
+    , "whiskerLength" ::? (TS.Number :|: TS.String)
+    , "whiskerWidth" ::? TS.Number
     ])
 
 newtype HighchartsBoxPlotChartSeriesOptions = HighchartsBoxPlotChartSeriesOptions (GHCJS.JSRef (HighchartsBoxPlotChartSeriesOptions))
@@ -398,44 +389,42 @@ type instance TS.Members HighchartsBoxPlotChartSeriesOptions = TS.Extends '[High
 newtype HighchartsBubbleChart = HighchartsBubbleChart (GHCJS.JSRef (HighchartsBubbleChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsBubbleChart =
-  ('[ '( 'TS.Property "allowPointSelect", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "cropThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "dashStyle", TS.Optional (TS.String) )
-    , '( 'TS.Property "dataLabels", TS.Optional (HighchartsRangeDataLabels) )
-    , '( 'TS.Property "displayNegative", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "linkedTo", TS.Optional (TS.String) )
-    , '( 'TS.Property "marker", TS.Optional (HighchartsMarker) )
-    , '( 'TS.Property "maxSize", TS.Optional (TS.String) )
-    , '( 'TS.Property "minSize", TS.Optional (TS.String) )
-    , '( 'TS.Property "negativeColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "allowPointSelect" ::? TS.Boolean
+    , "animation" ::? TS.Boolean
+    , "color" ::? TS.String
+    , "cropThreshold" ::? TS.Number
+    , "cursor" ::? TS.String
+    , "dashStyle" ::? TS.String
+    , "dataLabels" ::? HighchartsRangeDataLabels
+    , "displayNegative" ::? TS.Boolean
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "lineWidth" ::? TS.Number
+    , "linkedTo" ::? TS.String
+    , "marker" ::? HighchartsMarker
+    , "maxSize" ::? TS.String
+    , "minSize" ::? TS.String
+    , "negativeColor" ::? TS.String
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "pointInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointStart", TS.Optional (TS.Number) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "showCheckbox", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "sizeBy", TS.Optional (TS.String) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsBarStates )
+    , "pointInterval" ::? TS.Number
+    , "pointStart" ::? TS.Number
+    , "selected" ::? TS.Boolean
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "showCheckbox" ::? TS.Boolean
+    , "showInLegend" ::? TS.Boolean
+    , "sizeBy" ::? TS.String
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsBarStates
           ])
-      ) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "turboThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "zMax", TS.Optional (TS.Number) )
-    , '( 'TS.Property "zMin", TS.Optional (TS.Number) )
-    , '( 'TS.Property "zThreshold", TS.Optional (TS.Number) )
+    , "stickyTracking" ::? TS.Boolean
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "turboThreshold" ::? TS.Number
+    , "visible" ::? TS.Boolean
+    , "zMax" ::? TS.Number
+    , "zMin" ::? TS.Number
+    , "zThreshold" ::? TS.Number
     ])
 
 newtype HighchartsBubbleChartSeriesOptions = HighchartsBubbleChartSeriesOptions (GHCJS.JSRef (HighchartsBubbleChartSeriesOptions))
@@ -446,159 +435,159 @@ type instance TS.Members HighchartsBubbleChartSeriesOptions = TS.Extends '[Highc
 newtype HighchartsButton = HighchartsButton (GHCJS.JSRef (HighchartsButton))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsButton =
-  ('[ '( 'TS.Property "align", TS.Optional (TS.String) )
-    , '( 'TS.Property "backgroundColor", TS.Optional ((TS.String) :|: (HighchartsGradient)) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderRadius", TS.Optional (TS.Number) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "verticalAlign", TS.Optional (TS.String) )
-    , '( 'TS.Property "enabled", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "height", TS.Optional (TS.Number) )
-    , '( 'TS.Property "hoverBorderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "hoverSymbolFill", TS.Optional (TS.String) )
-    , '( 'TS.Property "hoverSimbolStroke", TS.Optional (TS.String) )
-    , '( 'TS.Property "menuItems", TS.Optional (TS.Array (HighchartsMenuItem)) )
-    , '( 'TS.Property "onclick", TS.Optional ((TS.Void)) )
-    , '( 'TS.Property "symbol", TS.Optional (TS.String) )
-    , '( 'TS.Property "simbolFill", TS.Optional (TS.String) )
-    , '( 'TS.Property "simbolSize", TS.Optional (TS.Number) )
-    , '( 'TS.Property "symbolStroke", TS.Optional (TS.String) )
-    , '( 'TS.Property "symbolStrokeWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "symbolX", TS.Optional (TS.Number) )
-    , '( 'TS.Property "symbolY", TS.Optional (TS.Number) )
-    , '( 'TS.Property "width", TS.Optional (TS.Number) )
-    , '( 'TS.Property "x", TS.Optional (TS.Number) )
-    , '( 'TS.Property "y", TS.Optional (TS.Number) )
+  ('[ "align" ::? TS.String
+    , "backgroundColor" ::? (TS.String :|: HighchartsGradient)
+    , "borderColor" ::? TS.String
+    , "borderRadius" ::? TS.Number
+    , "borderWidth" ::? TS.Number
+    , "verticalAlign" ::? TS.String
+    , "enabled" ::? TS.Boolean
+    , "height" ::? TS.Number
+    , "hoverBorderColor" ::? TS.String
+    , "hoverSymbolFill" ::? TS.String
+    , "hoverSimbolStroke" ::? TS.String
+    , "menuItems" ::? (TS.Array HighchartsMenuItem)
+    , "onclick" ::? (TS.Void)
+    , "symbol" ::? TS.String
+    , "simbolFill" ::? TS.String
+    , "simbolSize" ::? TS.Number
+    , "symbolStroke" ::? TS.String
+    , "symbolStrokeWidth" ::? TS.Number
+    , "symbolX" ::? TS.Number
+    , "symbolY" ::? TS.Number
+    , "width" ::? TS.Number
+    , "x" ::? TS.Number
+    , "y" ::? TS.Number
     ])
 
 newtype HighchartsCSSObject = HighchartsCSSObject (GHCJS.JSRef (HighchartsCSSObject))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsCSSObject =
-  ('[ '( 'TS.Property "background", TS.Optional (TS.String) )
-    , '( 'TS.Property "border", TS.Optional (TS.String) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "font", TS.Optional (TS.String) )
-    , '( 'TS.Property "fontSize", TS.Optional (TS.String) )
-    , '( 'TS.Property "fontWeight", TS.Optional (TS.String) )
-    , '( 'TS.Property "left", TS.Optional (TS.String) )
-    , '( 'TS.Property "opacity", TS.Optional (TS.Number) )
-    , '( 'TS.Property "padding", TS.Optional (TS.String) )
-    , '( 'TS.Property "position", TS.Optional (TS.String) )
-    , '( 'TS.Property "top", TS.Optional (TS.String) )
+  ('[ "background" ::? TS.String
+    , "border" ::? TS.String
+    , "color" ::? TS.String
+    , "cursor" ::? TS.String
+    , "font" ::? TS.String
+    , "fontSize" ::? TS.String
+    , "fontWeight" ::? TS.String
+    , "left" ::? TS.String
+    , "opacity" ::? TS.Number
+    , "padding" ::? TS.String
+    , "position" ::? TS.String
+    , "top" ::? TS.String
     ])
 
 newtype HighchartsChart = HighchartsChart (GHCJS.JSRef (HighchartsChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsChart =
-  ('[ '( 'TS.Constructor, HighchartsOptions -> HighchartsChartObject )
-    , '( 'TS.Constructor, HighchartsOptions -> (HighchartsChartObject -> TS.Void) -> HighchartsChartObject )
+  ('[ TS.Constructor (HighchartsOptions -> HighchartsChartObject)
+    , TS.Constructor (HighchartsOptions -> (HighchartsChartObject -> TS.Void) -> HighchartsChartObject)
     ])
 
 newtype HighchartsChartEvents = HighchartsChartEvents (GHCJS.JSRef (HighchartsChartEvents))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsChartEvents =
-  ('[ '( 'TS.Property "addSeries", TS.Optional ((TS.Optional (Event) -> TS.Boolean)) )
-    , '( 'TS.Property "click", TS.Optional ((TS.Optional (Event) -> TS.Void)) )
-    , '( 'TS.Property "load", TS.Optional ((TS.Optional (Event) -> TS.Void)) )
-    , '( 'TS.Property "redraw", TS.Optional ((Event -> TS.Void)) )
-    , '( 'TS.Property "selection", TS.Optional ((HighchartsSelectionEvent -> TS.Void)) )
+  ('[ "addSeries" ::? (TS.Optional (Event) -> TS.Boolean)
+    , "click" ::? (TS.Optional (Event) -> TS.Void)
+    , "load" ::? (TS.Optional (Event) -> TS.Void)
+    , "redraw" ::? (Event -> TS.Void)
+    , "selection" ::? (HighchartsSelectionEvent -> TS.Void)
     ])
 
 newtype HighchartsChartObject = HighchartsChartObject (GHCJS.JSRef (HighchartsChartObject))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsChartObject =
-  ('[ TS.Method "addAxis" (HighchartsAxisOptions -> TS.Optional (TS.Boolean) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) -> HighchartsAxisObject)
-    , TS.Method "addSeries" (TS.Any {- forall t. (t TS.:= HighchartsIndividualSeriesOptions) => t -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) -> t -})
-    , TS.Method "addSeriesAsDrilldown" (HighchartsPointObject -> HighchartsSeriesOptions -> TS.Void)
-    , '( 'TS.Property "container", HTMLElement )
-    , TS.Method "destroy" (TS.Void)
-    , TS.Method "drillUp" (TS.Void)
-    , TS.Method "exportChart" (TS.Void)
-    , TS.Method "exportChart" (HighchartsExportingOptions -> TS.Void)
-    , TS.Method "exportChart" (HighchartsExportingOptions -> HighchartsChartOptions -> TS.Void)
-    , TS.Method "get" (TS.String -> (HighchartsAxisObject) :|: ((HighchartsSeriesObject) :|: (HighchartsPointObject)))
-    , TS.Method "getSVG" (TS.String)
-    , TS.Method "getSVG" (HighchartsChartOptions -> TS.String)
-    , TS.Method "getSelectedPoints" (TS.Array (HighchartsPointObject))
-    , TS.Method "getSelectedSeries" (TS.Array (HighchartsSeriesObject))
-    , TS.Method "hideLoading" (TS.Void)
-    , '( 'TS.Property "options", HighchartsChartOptions )
-    , TS.Method "print" (TS.Void)
-    , TS.Method "redraw" (TS.Void)
-    , TS.Method "reflow" (TS.Void)
-    , '( 'TS.Property "series", TS.Array (HighchartsSeriesObject) )
-    , TS.Method "setSize" (TS.Number -> TS.Number -> TS.Void)
-    , TS.Method "setSize" (TS.Number -> TS.Number -> TS.Boolean -> TS.Void)
-    , TS.Method "setSize" (TS.Number -> TS.Number -> HighchartsAnimation -> TS.Void)
-    , TS.Method "setTitle" (HighchartsTitleOptions -> TS.Void)
-    , TS.Method "setTitle" (HighchartsTitleOptions -> HighchartsSubtitleOptions -> TS.Void)
-    , TS.Method "setTitle" (HighchartsTitleOptions -> HighchartsSubtitleOptions -> TS.Boolean -> TS.Void)
-    , TS.Method "showLoading" (TS.Void)
-    , TS.Method "showLoading" (TS.String -> TS.Void)
-    , '( 'TS.Property "xAxis", TS.Array (HighchartsAxisObject) )
-    , '( 'TS.Property "yAxis", TS.Array (HighchartsAxisObject) )
-    , '( 'TS.Property "renderer", HighchartsRendererObject )
+  ('[ "addAxis" ::: TS.Fun (HighchartsAxisOptions -> TS.Optional (TS.Boolean) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean :|: HighchartsAnimation)) -> HighchartsAxisObject)
+    , "addSeries" ::: TS.Fun (TS.Any {- forall t. (t TS.:= HighchartsIndividualSeriesOptions) => t -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean :|: HighchartsAnimation)) -> t -})
+    , "addSeriesAsDrilldown" ::: TS.Fun (HighchartsPointObject -> HighchartsSeriesOptions -> TS.Void)
+    , "container" ::: HTMLElement
+    , "destroy" ::: TS.Fun (TS.Void)
+    , "drillUp" ::: TS.Fun (TS.Void)
+    , "exportChart" ::: TS.Fun (TS.Void)
+    , "exportChart" ::: TS.Fun (HighchartsExportingOptions -> TS.Void)
+    , "exportChart" ::: TS.Fun (HighchartsExportingOptions -> HighchartsChartOptions -> TS.Void)
+    , "get" ::: TS.Fun (TS.String -> (HighchartsAxisObject :|: (HighchartsSeriesObject :|: HighchartsPointObject)))
+    , "getSVG" ::: TS.Fun (TS.String)
+    , "getSVG" ::: TS.Fun (HighchartsChartOptions -> TS.String)
+    , "getSelectedPoints" ::: TS.Fun ((TS.Array HighchartsPointObject))
+    , "getSelectedSeries" ::: TS.Fun ((TS.Array HighchartsSeriesObject))
+    , "hideLoading" ::: TS.Fun (TS.Void)
+    , "options" ::: HighchartsChartOptions
+    , "print" ::: TS.Fun (TS.Void)
+    , "redraw" ::: TS.Fun (TS.Void)
+    , "reflow" ::: TS.Fun (TS.Void)
+    , "series" ::: (TS.Array HighchartsSeriesObject)
+    , "setSize" ::: TS.Fun (TS.Number -> TS.Number -> TS.Void)
+    , "setSize" ::: TS.Fun (TS.Number -> TS.Number -> TS.Boolean -> TS.Void)
+    , "setSize" ::: TS.Fun (TS.Number -> TS.Number -> HighchartsAnimation -> TS.Void)
+    , "setTitle" ::: TS.Fun (HighchartsTitleOptions -> TS.Void)
+    , "setTitle" ::: TS.Fun (HighchartsTitleOptions -> HighchartsSubtitleOptions -> TS.Void)
+    , "setTitle" ::: TS.Fun (HighchartsTitleOptions -> HighchartsSubtitleOptions -> TS.Boolean -> TS.Void)
+    , "showLoading" ::: TS.Fun (TS.Void)
+    , "showLoading" ::: TS.Fun (TS.String -> TS.Void)
+    , "xAxis" ::: (TS.Array HighchartsAxisObject)
+    , "yAxis" ::: (TS.Array HighchartsAxisObject)
+    , "renderer" ::: HighchartsRendererObject
     ])
 
 newtype HighchartsChartOptions = HighchartsChartOptions (GHCJS.JSRef (HighchartsChartOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsChartOptions =
-  ('[ '( 'TS.Property "alignTicks", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "animation", TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) )
-    , '( 'TS.Property "backgroundColor", TS.Optional ((TS.String) :|: (HighchartsGradient)) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderRadius", TS.Optional (TS.Number) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "className", TS.Optional (TS.String) )
-    , '( 'TS.Property "defaultSeriesType", TS.Optional (TS.String) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsChartEvents) )
-    , '( 'TS.Property "height", TS.Optional (TS.Number) )
-    , '( 'TS.Property "ignoreHiddenSeries", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "inverted", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "margin", TS.Optional (TS.Array (TS.Number)) )
-    , '( 'TS.Property "marginBottom", TS.Optional (TS.Number) )
-    , '( 'TS.Property "marginLeft", TS.Optional (TS.Number) )
-    , '( 'TS.Property "marginRight", TS.Optional (TS.Number) )
-    , '( 'TS.Property "marginTop", TS.Optional (TS.Number) )
-    , '( 'TS.Property "plotBackGroundColor", TS.Optional ((TS.String) :|: (HighchartsGradient)) )
-    , '( 'TS.Property "plotBackGroundImage", TS.Optional (TS.String) )
-    , '( 'TS.Property "plotBorderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "plotBorderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "plotShadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "polar", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "reflow", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "renderTo", TS.Optional (TS.Any) )
-    , '( 'TS.Property "resetZoomButton", TS.Optional (HighchartsChartResetZoomButton) )
-    , '( 'TS.Property "selectionMarkerFill", TS.Optional (TS.String) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "showAxes", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "spacingBottom", TS.Optional (TS.Number) )
-    , '( 'TS.Property "spacingLeft", TS.Optional (TS.Number) )
-    , '( 'TS.Property "spacingRight", TS.Optional (TS.Number) )
-    , '( 'TS.Property "spacingTop", TS.Optional (TS.Number) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "type", TS.Optional (TS.String) )
-    , '( 'TS.Property "width", TS.Optional (TS.Number) )
-    , '( 'TS.Property "zoomType", TS.Optional (TS.String) )
+  ('[ "alignTicks" ::? TS.Boolean
+    , "animation" ::? (TS.Boolean :|: HighchartsAnimation)
+    , "backgroundColor" ::? (TS.String :|: HighchartsGradient)
+    , "borderColor" ::? TS.String
+    , "borderRadius" ::? TS.Number
+    , "borderWidth" ::? TS.Number
+    , "className" ::? TS.String
+    , "defaultSeriesType" ::? TS.String
+    , "events" ::? HighchartsChartEvents
+    , "height" ::? TS.Number
+    , "ignoreHiddenSeries" ::? TS.Boolean
+    , "inverted" ::? TS.Boolean
+    , "margin" ::? (TS.Array TS.Number)
+    , "marginBottom" ::? TS.Number
+    , "marginLeft" ::? TS.Number
+    , "marginRight" ::? TS.Number
+    , "marginTop" ::? TS.Number
+    , "plotBackGroundColor" ::? (TS.String :|: HighchartsGradient)
+    , "plotBackGroundImage" ::? TS.String
+    , "plotBorderColor" ::? TS.String
+    , "plotBorderWidth" ::? TS.Number
+    , "plotShadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "polar" ::? TS.Boolean
+    , "reflow" ::? TS.Boolean
+    , "renderTo" ::? TS.Any
+    , "resetZoomButton" ::? HighchartsChartResetZoomButton
+    , "selectionMarkerFill" ::? TS.String
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "showAxes" ::? TS.Boolean
+    , "spacingBottom" ::? TS.Number
+    , "spacingLeft" ::? TS.Number
+    , "spacingRight" ::? TS.Number
+    , "spacingTop" ::? TS.Number
+    , "style" ::? HighchartsCSSObject
+    , "type" ::? TS.String
+    , "width" ::? TS.Number
+    , "zoomType" ::? TS.String
     ])
 
 newtype HighchartsChartResetZoomButton = HighchartsChartResetZoomButton (GHCJS.JSRef (HighchartsChartResetZoomButton))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsChartResetZoomButton =
-  ('[ '( 'TS.Property "position", HighchartsPosition )
-    , '( 'TS.Property "relativeTo", TS.Optional (TS.String) )
-    , '( 'TS.Property "theme", TS.Optional (HighchartsChartResetZoomButtonTheme) )
+  ('[ "position" ::: HighchartsPosition
+    , "relativeTo" ::? TS.String
+    , "theme" ::? HighchartsChartResetZoomButtonTheme
     ])
 
 newtype HighchartsChartResetZoomButtonTheme = HighchartsChartResetZoomButtonTheme (GHCJS.JSRef (HighchartsChartResetZoomButtonTheme))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsChartResetZoomButtonTheme =
-  ('[ '( 'TS.Property "fill", TS.Optional (TS.String) )
-    , '( 'TS.Property "stroke", TS.Optional (TS.String) )
-    , '( 'TS.Property "r", TS.Optional (TS.Number) )
-    , '( 'TS.Property "states", TS.Optional (TS.Any) )
-    , '( 'TS.Property "display", TS.Optional (TS.String) )
+  ('[ "fill" ::? TS.String
+    , "stroke" ::? TS.String
+    , "r" ::? TS.Number
+    , "states" ::? TS.Any
+    , "display" ::? TS.String
     ])
 
 newtype HighchartsColumnChart = HighchartsColumnChart (GHCJS.JSRef (HighchartsColumnChart))
@@ -614,47 +603,45 @@ type instance TS.Members HighchartsColumnChartSeriesOptions = TS.Extends '[Highc
 newtype HighchartsColumnRangeChart = HighchartsColumnRangeChart (GHCJS.JSRef (HighchartsColumnRangeChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsColumnRangeChart =
-  ('[ '( 'TS.Property "allowPointSelect", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderRadius", TS.Optional (TS.Number) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "colorByPoint", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "colors", TS.Optional (TS.Array (TS.String)) )
-    , '( 'TS.Property "cropThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "dataLabels", TS.Optional (HighchartsRangeDataLabels) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "groupPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "grouping", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "linkedTo", TS.Optional (TS.String) )
-    , '( 'TS.Property "minPointLength", TS.Optional (TS.Number) )
-    , '( 'TS.Property "negativeColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "allowPointSelect" ::? TS.Boolean
+    , "animation" ::? TS.Boolean
+    , "borderColor" ::? TS.String
+    , "borderRadius" ::? TS.Number
+    , "borderWidth" ::? TS.Number
+    , "color" ::? TS.String
+    , "colorByPoint" ::? TS.Boolean
+    , "colors" ::? (TS.Array TS.String)
+    , "cropThreshold" ::? TS.Number
+    , "cursor" ::? TS.String
+    , "dataLabels" ::? HighchartsRangeDataLabels
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "groupPadding" ::? TS.Number
+    , "grouping" ::? TS.Boolean
+    , "linkedTo" ::? TS.String
+    , "minPointLength" ::? TS.Number
+    , "negativeColor" ::? TS.String
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "pointInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPlacement", TS.Optional ((TS.String) :|: (TS.Number)) )
-    , '( 'TS.Property "pointRange", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointStart", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "showCheckbox", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "stacking", TS.Optional (TS.String) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsBarStates )
+    , "pointInterval" ::? TS.Number
+    , "pointPadding" ::? TS.Number
+    , "pointPlacement" ::? (TS.String :|: TS.Number)
+    , "pointRange" ::? TS.Number
+    , "pointStart" ::? TS.Number
+    , "pointWidth" ::? TS.Number
+    , "selected" ::? TS.Boolean
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "showCheckbox" ::? TS.Boolean
+    , "showInLegend" ::? TS.Boolean
+    , "stacking" ::? TS.String
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsBarStates
           ])
-      ) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "turboThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
+    , "stickyTracking" ::? TS.Boolean
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "turboThreshold" ::? TS.Number
+    , "visible" ::? TS.Boolean
     ])
 
 newtype HighchartsColumnRangeChartSeriesOptions = HighchartsColumnRangeChartSeriesOptions (GHCJS.JSRef (HighchartsColumnRangeChartSeriesOptions))
@@ -665,106 +652,106 @@ type instance TS.Members HighchartsColumnRangeChartSeriesOptions = TS.Extends '[
 newtype HighchartsCreditsOptions = HighchartsCreditsOptions (GHCJS.JSRef (HighchartsCreditsOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsCreditsOptions =
-  ('[ '( 'TS.Property "enabled", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "href", TS.Optional (TS.String) )
-    , '( 'TS.Property "position", TS.Optional (HighchartsPosition) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "text", TS.Optional (TS.String) )
+  ('[ "enabled" ::? TS.Boolean
+    , "href" ::? TS.String
+    , "position" ::? HighchartsPosition
+    , "style" ::? HighchartsCSSObject
+    , "text" ::? TS.String
     ])
 
 newtype HighchartsCrosshairObject = HighchartsCrosshairObject (GHCJS.JSRef (HighchartsCrosshairObject))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsCrosshairObject =
-  ('[ '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "width", TS.Optional (TS.Number) )
-    , '( 'TS.Property "dashStyle", TS.Optional (TS.String) )
-    , '( 'TS.Property "zIndex", TS.Optional (TS.Number) )
+  ('[ "color" ::? TS.String
+    , "width" ::? TS.Number
+    , "dashStyle" ::? TS.String
+    , "zIndex" ::? TS.Number
     ])
 
 newtype HighchartsDataLabels = HighchartsDataLabels (GHCJS.JSRef (HighchartsDataLabels))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsDataLabels =
-  ('[ '( 'TS.Property "align", TS.Optional (TS.String) )
-    , '( 'TS.Property "backgroundColor", TS.Optional ((TS.String) :|: (HighchartsGradient)) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderRadius", TS.Optional (TS.Number) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "crop", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "enabled", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "formatter", TS.Optional ((TS.Any)) )
-    , '( 'TS.Property "overflow", TS.Optional (TS.String) )
-    , '( 'TS.Property "padding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "rotation", TS.Optional (TS.Number) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "staggerLines", TS.Optional (TS.Any) )
-    , '( 'TS.Property "step", TS.Optional (TS.Any) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "useHTML", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "verticalAlign", TS.Optional (TS.String) )
-    , '( 'TS.Property "x", TS.Optional (TS.Number) )
-    , '( 'TS.Property "y", TS.Optional (TS.Number) )
+  ('[ "align" ::? TS.String
+    , "backgroundColor" ::? (TS.String :|: HighchartsGradient)
+    , "borderColor" ::? TS.String
+    , "borderRadius" ::? TS.Number
+    , "borderWidth" ::? TS.Number
+    , "color" ::? TS.String
+    , "crop" ::? TS.Boolean
+    , "enabled" ::? TS.Boolean
+    , "formatter" ::? (TS.Any)
+    , "overflow" ::? TS.String
+    , "padding" ::? TS.Number
+    , "rotation" ::? TS.Number
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "staggerLines" ::? TS.Any
+    , "step" ::? TS.Any
+    , "style" ::? HighchartsCSSObject
+    , "useHTML" ::? TS.Boolean
+    , "verticalAlign" ::? TS.String
+    , "x" ::? TS.Number
+    , "y" ::? TS.Number
     ])
 
 newtype HighchartsDataPoint = HighchartsDataPoint (GHCJS.JSRef (HighchartsDataPoint))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsDataPoint =
-  ('[ '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "dataLabels", TS.Optional (HighchartsDataLabels) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPointEvents) )
-    , '( 'TS.Property "id", TS.Optional (TS.String) )
-    , '( 'TS.Property "legendIndex", TS.Optional (TS.Number) )
-    , '( 'TS.Property "marker", TS.Optional (HighchartsMarker) )
-    , '( 'TS.Property "name", TS.Optional (TS.String) )
-    , '( 'TS.Property "sliced", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "x", TS.Optional (TS.Number) )
-    , '( 'TS.Property "y", TS.Optional (TS.Number) )
+  ('[ "color" ::? TS.String
+    , "dataLabels" ::? HighchartsDataLabels
+    , "events" ::? HighchartsPointEvents
+    , "id" ::? TS.String
+    , "legendIndex" ::? TS.Number
+    , "marker" ::? HighchartsMarker
+    , "name" ::? TS.String
+    , "sliced" ::? TS.Boolean
+    , "x" ::? TS.Number
+    , "y" ::? TS.Number
     ])
 
 newtype HighchartsDateTimeFormats = HighchartsDateTimeFormats (GHCJS.JSRef (HighchartsDateTimeFormats))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsDateTimeFormats =
-  ('[ '( 'TS.Property "millisecond", TS.Optional (TS.String) )
-    , '( 'TS.Property "second", TS.Optional (TS.String) )
-    , '( 'TS.Property "minute", TS.Optional (TS.String) )
-    , '( 'TS.Property "hour", TS.Optional (TS.String) )
-    , '( 'TS.Property "day", TS.Optional (TS.String) )
-    , '( 'TS.Property "week", TS.Optional (TS.String) )
-    , '( 'TS.Property "month", TS.Optional (TS.String) )
-    , '( 'TS.Property "year", TS.Optional (TS.String) )
+  ('[ "millisecond" ::? TS.String
+    , "second" ::? TS.String
+    , "minute" ::? TS.String
+    , "hour" ::? TS.String
+    , "day" ::? TS.String
+    , "week" ::? TS.String
+    , "month" ::? TS.String
+    , "year" ::? TS.String
     ])
 
 newtype HighchartsDial = HighchartsDial (GHCJS.JSRef (HighchartsDial))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsDial =
-  ('[ '( 'TS.Property "backgroundColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "baseLength", TS.Optional (TS.String) )
-    , '( 'TS.Property "baseWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "radius", TS.Optional (TS.String) )
-    , '( 'TS.Property "rearLength", TS.Optional (TS.String) )
-    , '( 'TS.Property "topWidth", TS.Optional (TS.Number) )
+  ('[ "backgroundColor" ::? TS.String
+    , "baseLength" ::? TS.String
+    , "baseWidth" ::? TS.Number
+    , "borderColor" ::? TS.String
+    , "borderWidth" ::? TS.Number
+    , "radius" ::? TS.String
+    , "rearLength" ::? TS.String
+    , "topWidth" ::? TS.Number
     ])
 
 newtype HighchartsElementObject = HighchartsElementObject (GHCJS.JSRef (HighchartsElementObject))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsElementObject =
-  ('[ TS.Method "add" (HighchartsElementObject)
-    , TS.Method "add" (HighchartsElementObject -> HighchartsElementObject)
-    , TS.Method "animate" (TS.Any -> TS.Optional (TS.Any) -> HighchartsElementObject)
-    , TS.Method "attr" (TS.Any -> HighchartsElementObject)
-    , TS.Method "css" (HighchartsCSSObject -> HighchartsElementObject)
-    , TS.Method "destroy" (TS.Void)
-    , TS.Method "getBBox" (TS.Object
-        ('[ '( 'TS.Property "x", TS.Number )
-          , '( 'TS.Property "y", TS.Number )
-          , '( 'TS.Property "height", TS.Number )
-          , '( 'TS.Property "width", TS.Number )
+  ('[ "add" ::: TS.Fun (HighchartsElementObject)
+    , "add" ::: TS.Fun (HighchartsElementObject -> HighchartsElementObject)
+    , "animate" ::: TS.Fun (TS.Any -> TS.Optional (TS.Any) -> HighchartsElementObject)
+    , "attr" ::: TS.Fun (TS.Any -> HighchartsElementObject)
+    , "css" ::: TS.Fun (HighchartsCSSObject -> HighchartsElementObject)
+    , "destroy" ::: TS.Fun (TS.Void)
+    , "getBBox" ::: TS.Fun (TS.Obj
+        ('[ "x" ::: TS.Number
+          , "y" ::: TS.Number
+          , "height" ::: TS.Number
+          , "width" ::: TS.Number
           ])
       )
-    , TS.Method "on" (TS.String -> (TS.Void) -> HighchartsElementObject)
-    , TS.Method "toFront" (HighchartsElementObject)
+    , "on" ::: TS.Fun (TS.String -> (TS.Void) -> HighchartsElementObject)
+    , "toFront" ::: TS.Fun (HighchartsElementObject)
     ])
 
 newtype HighchartsErrorBarChart = HighchartsErrorBarChart (GHCJS.JSRef (HighchartsErrorBarChart))
@@ -780,26 +767,25 @@ type instance TS.Members HighchartsErrorBarChartSeriesOptions = TS.Extends '[Hig
 newtype HighchartsExportingOptions = HighchartsExportingOptions (GHCJS.JSRef (HighchartsExportingOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsExportingOptions =
-  ('[ '( 'TS.Property "buttons", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "exportButton", TS.Optional (HighchartsButton) )
-          , '( 'TS.Property "printButton", TS.Optional (HighchartsButton) )
+  ('[ "buttons" ::? TS.Obj
+        ('[ "exportButton" ::? HighchartsButton
+          , "printButton" ::? HighchartsButton
           ])
-      ) )
-    , '( 'TS.Property "enableImages", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "enabled", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "filename", TS.Optional (TS.String) )
-    , '( 'TS.Property "type", TS.Optional (TS.String) )
-    , '( 'TS.Property "url", TS.Optional (TS.String) )
-    , '( 'TS.Property "width", TS.Optional (TS.Number) )
+    , "enableImages" ::? TS.Boolean
+    , "enabled" ::? TS.Boolean
+    , "filename" ::? TS.String
+    , "type" ::? TS.String
+    , "url" ::? TS.String
+    , "width" ::? TS.Number
     ])
 
 newtype HighchartsExtremes = HighchartsExtremes (GHCJS.JSRef (HighchartsExtremes))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsExtremes =
-  ('[ '( 'TS.Property "dataMax", TS.Number )
-    , '( 'TS.Property "dataMin", TS.Number )
-    , '( 'TS.Property "max", TS.Number )
-    , '( 'TS.Property "min", TS.Number )
+  ('[ "dataMax" ::: TS.Number
+    , "dataMin" ::: TS.Number
+    , "max" ::: TS.Number
+    , "min" ::: TS.Number
     ])
 
 newtype HighchartsFunnelChart = HighchartsFunnelChart (GHCJS.JSRef (HighchartsFunnelChart))
@@ -815,30 +801,28 @@ type instance TS.Members HighchartsFunnelChartSeriesOptions = TS.Extends '[Highc
 newtype HighchartsGaugeChart = HighchartsGaugeChart (GHCJS.JSRef (HighchartsGaugeChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsGaugeChart =
-  ('[ '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "datalabels", TS.Optional (HighchartsDataLabels) )
-    , '( 'TS.Property "dial", TS.Optional (HighchartsDial) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "id", TS.Optional (TS.String) )
-    , '( 'TS.Property "pivot", TS.Optional (HighchartsPivot) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "animation" ::? TS.Boolean
+    , "color" ::? TS.String
+    , "cursor" ::? TS.String
+    , "datalabels" ::? HighchartsDataLabels
+    , "dial" ::? HighchartsDial
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "id" ::? TS.String
+    , "pivot" ::? HighchartsPivot
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showCheckbox", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsAreaStates )
+    , "selected" ::? TS.Boolean
+    , "showCheckbox" ::? TS.Boolean
+    , "showInLegend" ::? TS.Boolean
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsAreaStates
           ])
-      ) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "zIndex", TS.Optional (TS.Number) )
+    , "stickyTracking" ::? TS.Boolean
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "visible" ::? TS.Boolean
+    , "zIndex" ::? TS.Number
     ])
 
 newtype HighchartsGaugeChartSeriesOptions = HighchartsGaugeChartSeriesOptions (GHCJS.JSRef (HighchartsGaugeChartSeriesOptions))
@@ -849,39 +833,37 @@ type instance TS.Members HighchartsGaugeChartSeriesOptions = TS.Extends '[Highch
 newtype HighchartsGlobalObject = HighchartsGlobalObject (GHCJS.JSRef (HighchartsGlobalObject))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsGlobalObject =
-  ('[ '( 'TS.Property "Date", TS.Optional (TS.Any) )
-    , '( 'TS.Property "VMLRadialGradientURL", TS.Optional (TS.String) )
-    , '( 'TS.Property "canvasToolsURL", TS.Optional (TS.String) )
-    , '( 'TS.Property "timezoneOffset", TS.Optional (TS.Number) )
-    , '( 'TS.Property "useUTC", TS.Optional (TS.Boolean) )
+  ('[ "Date" ::? TS.Any
+    , "VMLRadialGradientURL" ::? TS.String
+    , "canvasToolsURL" ::? TS.String
+    , "timezoneOffset" ::? TS.Number
+    , "useUTC" ::? TS.Boolean
     ])
 
 newtype HighchartsGlobalOptions = HighchartsGlobalOptions (GHCJS.JSRef (HighchartsGlobalOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsGlobalOptions = TS.Extends '[HighchartsOptions]
-  ('[ '( 'TS.Property "global", TS.Optional (HighchartsGlobalObject) )
-    , '( 'TS.Property "lang", TS.Optional (HighchartsLangObject) )
+  ('[ "global" ::? HighchartsGlobalObject
+    , "lang" ::? HighchartsLangObject
     ])
 
 newtype HighchartsGradient = HighchartsGradient (GHCJS.JSRef (HighchartsGradient))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsGradient =
-  ('[ '( 'TS.Property "linearGradient", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "x1", TS.Number )
-          , '( 'TS.Property "y1", TS.Number )
-          , '( 'TS.Property "x2", TS.Number )
-          , '( 'TS.Property "y2", TS.Number )
+  ('[ "linearGradient" ::? TS.Obj
+        ('[ "x1" ::: TS.Number
+          , "y1" ::: TS.Number
+          , "x2" ::: TS.Number
+          , "y2" ::: TS.Number
           ])
-      ) )
-    , '( 'TS.Property "radialGradient", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "cx", TS.Number )
-          , '( 'TS.Property "cy", TS.Number )
-          , '( 'TS.Property "r", TS.Number )
+    , "radialGradient" ::? TS.Obj
+        ('[ "cx" ::: TS.Number
+          , "cy" ::: TS.Number
+          , "r" ::: TS.Number
           ])
-      ) )
-    , '( 'TS.Property "stops", TS.Optional (TS.Array (TS.Array (TS.Any))) )
-    , TS.OptionalMethod "brighten" (TS.Number -> (TS.String) :|: (HighchartsGradient))
-    , TS.OptionalMethod "get" (TS.String -> TS.String)
+    , "stops" ::? (TS.Array (TS.Array TS.Any))
+    , "brighten" ::? TS.Fun (TS.Number -> (TS.String :|: HighchartsGradient))
+    , "get" ::? TS.Fun (TS.String -> TS.String)
     ])
 
 newtype HighchartsHeatMapChart = HighchartsHeatMapChart (GHCJS.JSRef (HighchartsHeatMapChart))
@@ -897,138 +879,136 @@ type instance TS.Members HighchartsHeatMapSeriesOptions = TS.Extends '[Highchart
 newtype HighchartsIndividualSeriesOptions = HighchartsIndividualSeriesOptions (GHCJS.JSRef (HighchartsIndividualSeriesOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsIndividualSeriesOptions =
-  ('[ '( 'TS.Property "data", TS.Optional ((TS.Array (TS.Number)) :|: ((TS.Array ((TS.Number, TS.Number))) :|: (TS.Array (HighchartsDataPoint)))) )
-    , '( 'TS.Property "id", TS.Optional (TS.String) )
-    , '( 'TS.Property "index", TS.Optional (TS.Number) )
-    , '( 'TS.Property "legendIndex", TS.Optional (TS.Number) )
-    , '( 'TS.Property "name", TS.Optional (TS.String) )
-    , '( 'TS.Property "stack", TS.Optional (TS.Any) )
-    , '( 'TS.Property "type", TS.Optional (TS.String) )
-    , '( 'TS.Property "xAxis", TS.Optional ((TS.String) :|: (TS.Number)) )
-    , '( 'TS.Property "yAxis", TS.Optional ((TS.String) :|: (TS.Number)) )
+  ('[ "data" ::? ((TS.Array TS.Number) :|: ((TS.Array (TS.Number, TS.Number)) :|: (TS.Array HighchartsDataPoint)))
+    , "id" ::? TS.String
+    , "index" ::? TS.Number
+    , "legendIndex" ::? TS.Number
+    , "name" ::? TS.String
+    , "stack" ::? TS.Any
+    , "type" ::? TS.String
+    , "xAxis" ::? (TS.String :|: TS.Number)
+    , "yAxis" ::? (TS.String :|: TS.Number)
     ])
 
 newtype HighchartsLabelItem = HighchartsLabelItem (GHCJS.JSRef (HighchartsLabelItem))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsLabelItem =
-  ('[ '( 'TS.Property "html", TS.String )
-    , '( 'TS.Property "style", HighchartsCSSObject )
+  ('[ "html" ::: TS.String
+    , "style" ::: HighchartsCSSObject
     ])
 
 newtype HighchartsLabelsOptions = HighchartsLabelsOptions (GHCJS.JSRef (HighchartsLabelsOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsLabelsOptions =
-  ('[ '( 'TS.Property "items", TS.Optional (TS.Array (HighchartsLabelItem)) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
+  ('[ "items" ::? (TS.Array HighchartsLabelItem)
+    , "style" ::? HighchartsCSSObject
     ])
 
 newtype HighchartsLangObject = HighchartsLangObject (GHCJS.JSRef (HighchartsLangObject))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsLangObject =
-  ('[ '( 'TS.Property "contextButtonTitle", TS.Optional (TS.String) )
-    , '( 'TS.Property "decimalPoint", TS.Optional (TS.String) )
-    , '( 'TS.Property "downloadJPEG", TS.Optional (TS.String) )
-    , '( 'TS.Property "downloadPDF", TS.Optional (TS.String) )
-    , '( 'TS.Property "downloadPNG", TS.Optional (TS.String) )
-    , '( 'TS.Property "downloadSVG", TS.Optional (TS.String) )
-    , '( 'TS.Property "drillUpText", TS.Optional (TS.String) )
-    , '( 'TS.Property "loading", TS.Optional (TS.String) )
-    , '( 'TS.Property "months", TS.Optional (TS.Array (TS.String)) )
-    , '( 'TS.Property "noData", TS.Optional (TS.String) )
-    , '( 'TS.Property "numericSymbols", TS.Optional (TS.Array (TS.String)) )
-    , '( 'TS.Property "printChart", TS.Optional (TS.String) )
-    , '( 'TS.Property "resetZoom", TS.Optional (TS.String) )
-    , '( 'TS.Property "resetZoomTitle", TS.Optional (TS.String) )
-    , '( 'TS.Property "shortMonths", TS.Optional (TS.Array (TS.String)) )
-    , '( 'TS.Property "thousandsSep", TS.Optional (TS.String) )
-    , '( 'TS.Property "weekdays", TS.Optional (TS.Array (TS.String)) )
+  ('[ "contextButtonTitle" ::? TS.String
+    , "decimalPoint" ::? TS.String
+    , "downloadJPEG" ::? TS.String
+    , "downloadPDF" ::? TS.String
+    , "downloadPNG" ::? TS.String
+    , "downloadSVG" ::? TS.String
+    , "drillUpText" ::? TS.String
+    , "loading" ::? TS.String
+    , "months" ::? (TS.Array TS.String)
+    , "noData" ::? TS.String
+    , "numericSymbols" ::? (TS.Array TS.String)
+    , "printChart" ::? TS.String
+    , "resetZoom" ::? TS.String
+    , "resetZoomTitle" ::? TS.String
+    , "shortMonths" ::? (TS.Array TS.String)
+    , "thousandsSep" ::? TS.String
+    , "weekdays" ::? (TS.Array TS.String)
     ])
 
 newtype HighchartsLegendNavigationOptions = HighchartsLegendNavigationOptions (GHCJS.JSRef (HighchartsLegendNavigationOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsLegendNavigationOptions =
-  ('[ '( 'TS.Property "activeColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "animation", TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) )
-    , '( 'TS.Property "arrowSize", TS.Optional (TS.Number) )
-    , '( 'TS.Property "inactiveColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
+  ('[ "activeColor" ::? TS.String
+    , "animation" ::? (TS.Boolean :|: HighchartsAnimation)
+    , "arrowSize" ::? TS.Number
+    , "inactiveColor" ::? TS.String
+    , "style" ::? HighchartsCSSObject
     ])
 
 newtype HighchartsLegendOptions = HighchartsLegendOptions (GHCJS.JSRef (HighchartsLegendOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsLegendOptions =
-  ('[ '( 'TS.Property "align", TS.Optional (TS.String) )
-    , '( 'TS.Property "backgroundColor", TS.Optional ((TS.String) :|: (HighchartsGradient)) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderRadius", TS.Optional (TS.Number) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "enabled", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "floating", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "itemHiddenStyle", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "itemHoverStyle", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "itemMarginBottom", TS.Optional (TS.Number) )
-    , '( 'TS.Property "itemMarginTop", TS.Optional (TS.Number) )
-    , '( 'TS.Property "itemStyle", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "itemWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "labelFormatter", TS.Optional ((TS.String)) )
-    , '( 'TS.Property "layout", TS.Optional (TS.String) )
-    , '( 'TS.Property "lineHeight", TS.Optional (TS.String) )
-    , '( 'TS.Property "margin", TS.Optional (TS.Number) )
-    , '( 'TS.Property "maxHeight", TS.Optional (TS.Number) )
-    , '( 'TS.Property "navigation", TS.Optional (HighchartsLegendNavigationOptions) )
-    , '( 'TS.Property "padding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "reversed", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "rtl", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "verticalAlign", TS.Optional (TS.String) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "symbolPadding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "symbolWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "useHTML", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "width", TS.Optional (TS.Number) )
-    , '( 'TS.Property "x", TS.Optional (TS.Number) )
-    , '( 'TS.Property "y", TS.Optional (TS.Number) )
+  ('[ "align" ::? TS.String
+    , "backgroundColor" ::? (TS.String :|: HighchartsGradient)
+    , "borderColor" ::? TS.String
+    , "borderRadius" ::? TS.Number
+    , "borderWidth" ::? TS.Number
+    , "enabled" ::? TS.Boolean
+    , "floating" ::? TS.Boolean
+    , "itemHiddenStyle" ::? HighchartsCSSObject
+    , "itemHoverStyle" ::? HighchartsCSSObject
+    , "itemMarginBottom" ::? TS.Number
+    , "itemMarginTop" ::? TS.Number
+    , "itemStyle" ::? HighchartsCSSObject
+    , "itemWidth" ::? TS.Number
+    , "labelFormatter" ::? (TS.String)
+    , "layout" ::? TS.String
+    , "lineHeight" ::? TS.String
+    , "margin" ::? TS.Number
+    , "maxHeight" ::? TS.Number
+    , "navigation" ::? HighchartsLegendNavigationOptions
+    , "padding" ::? TS.Number
+    , "reversed" ::? TS.Boolean
+    , "rtl" ::? TS.Boolean
+    , "verticalAlign" ::? TS.String
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "style" ::? HighchartsCSSObject
+    , "symbolPadding" ::? TS.Number
+    , "symbolWidth" ::? TS.Number
+    , "useHTML" ::? TS.Boolean
+    , "width" ::? TS.Number
+    , "x" ::? TS.Number
+    , "y" ::? TS.Number
     ])
 
 newtype HighchartsLineChart = HighchartsLineChart (GHCJS.JSRef (HighchartsLineChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsLineChart =
-  ('[ '( 'TS.Property "allowPointSelect", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "connectEnds", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "connectNulls", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "cropThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "dashStyle", TS.Optional (TS.String) )
-    , '( 'TS.Property "dataLabels", TS.Optional (HighchartsDataLabels) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "id", TS.Optional (TS.String) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "marker", TS.Optional (HighchartsMarker) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "allowPointSelect" ::? TS.Boolean
+    , "animation" ::? TS.Boolean
+    , "color" ::? TS.String
+    , "connectEnds" ::? TS.Boolean
+    , "connectNulls" ::? TS.Boolean
+    , "cropThreshold" ::? TS.Number
+    , "cursor" ::? TS.String
+    , "dashStyle" ::? TS.String
+    , "dataLabels" ::? HighchartsDataLabels
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "id" ::? TS.String
+    , "lineWidth" ::? TS.Number
+    , "marker" ::? HighchartsMarker
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "pointInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPlacement", TS.Optional (TS.String) )
-    , '( 'TS.Property "pointStart", TS.Optional (TS.Number) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "showCheckbox", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "stacking", TS.Optional (TS.String) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsAreaStates )
+    , "pointInterval" ::? TS.Number
+    , "pointPlacement" ::? TS.String
+    , "pointStart" ::? TS.Number
+    , "selected" ::? TS.Boolean
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "showCheckbox" ::? TS.Boolean
+    , "showInLegend" ::? TS.Boolean
+    , "stacking" ::? TS.String
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsAreaStates
           ])
-      ) )
-    , '( 'TS.Property "step", TS.Optional ((TS.Boolean) :|: (TS.String)) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "turboThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "zIndex", TS.Optional (TS.Number) )
+    , "step" ::? (TS.Boolean :|: TS.String)
+    , "stickyTracking" ::? TS.Boolean
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "turboThreshold" ::? TS.Number
+    , "visible" ::? TS.Boolean
+    , "zIndex" ::? TS.Number
     ])
 
 newtype HighchartsLineChartSeriesOptions = HighchartsLineChartSeriesOptions (GHCJS.JSRef (HighchartsLineChartSeriesOptions))
@@ -1039,138 +1019,135 @@ type instance TS.Members HighchartsLineChartSeriesOptions = TS.Extends '[Highcha
 newtype HighchartsLoadingOptions = HighchartsLoadingOptions (GHCJS.JSRef (HighchartsLoadingOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsLoadingOptions =
-  ('[ '( 'TS.Property "hideDuration", TS.Optional (TS.Number) )
-    , '( 'TS.Property "labelStyle", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "showDuration", TS.Optional (TS.Number) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
+  ('[ "hideDuration" ::? TS.Number
+    , "labelStyle" ::? HighchartsCSSObject
+    , "showDuration" ::? TS.Number
+    , "style" ::? HighchartsCSSObject
     ])
 
 newtype HighchartsMarker = HighchartsMarker (GHCJS.JSRef (HighchartsMarker))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsMarker = TS.Extends '[HighchartsMarkerState]
-  ('[ '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", TS.Optional (HighchartsMarkerState) )
-          , '( 'TS.Property "select", TS.Optional (HighchartsMarkerState) )
+  ('[ "states" ::? TS.Obj
+        ('[ "hover" ::? HighchartsMarkerState
+          , "select" ::? HighchartsMarkerState
           ])
-      ) )
-    , '( 'TS.Property "symbol", TS.Optional (TS.String) )
+    , "symbol" ::? TS.String
     ])
 
 newtype HighchartsMarkerState = HighchartsMarkerState (GHCJS.JSRef (HighchartsMarkerState))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsMarkerState =
-  ('[ '( 'TS.Property "enabled", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "fillColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "lineColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "radius", TS.Optional (TS.Number) )
+  ('[ "enabled" ::? TS.Boolean
+    , "fillColor" ::? TS.String
+    , "lineColor" ::? TS.String
+    , "lineWidth" ::? TS.Number
+    , "radius" ::? TS.Number
     ])
 
 newtype HighchartsMenuItem = HighchartsMenuItem (GHCJS.JSRef (HighchartsMenuItem))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsMenuItem =
-  ('[ '( 'TS.Property "text", TS.String )
-    , '( 'TS.Property "onclick", (TS.Void) )
+  ('[ "text" ::: TS.String
+    , "onclick" ::: (TS.Void)
     ])
 
 newtype HighchartsMousePlotEvents = HighchartsMousePlotEvents (GHCJS.JSRef (HighchartsMousePlotEvents))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsMousePlotEvents =
-  ('[ '( 'TS.Property "click", TS.Optional ((TS.Optional (Event) -> TS.Void)) )
-    , '( 'TS.Property "mouseover", TS.Optional ((TS.Optional (Event) -> TS.Void)) )
-    , '( 'TS.Property "mouseout", TS.Optional ((TS.Optional (Event) -> TS.Void)) )
-    , '( 'TS.Property "mousemove", TS.Optional ((TS.Optional (Event) -> TS.Void)) )
+  ('[ "click" ::? (TS.Optional (Event) -> TS.Void)
+    , "mouseover" ::? (TS.Optional (Event) -> TS.Void)
+    , "mouseout" ::? (TS.Optional (Event) -> TS.Void)
+    , "mousemove" ::? (TS.Optional (Event) -> TS.Void)
     ])
 
 newtype HighchartsNavigationOptions = HighchartsNavigationOptions (GHCJS.JSRef (HighchartsNavigationOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsNavigationOptions =
-  ('[ '( 'TS.Property "buttonOptions", TS.Optional (HighchartsButton) )
-    , '( 'TS.Property "menuItemHoverStyle", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "menuItemStyle", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "menuStyle", TS.Optional (HighchartsCSSObject) )
+  ('[ "buttonOptions" ::? HighchartsButton
+    , "menuItemHoverStyle" ::? HighchartsCSSObject
+    , "menuItemStyle" ::? HighchartsCSSObject
+    , "menuStyle" ::? HighchartsCSSObject
     ])
 
 newtype HighchartsOptions = HighchartsOptions (GHCJS.JSRef (HighchartsOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsOptions =
-  ('[ '( 'TS.Property "chart", TS.Optional (HighchartsChartOptions) )
-    , '( 'TS.Property "colors", TS.Optional (TS.Array (TS.String)) )
-    , '( 'TS.Property "credits", TS.Optional (HighchartsCreditsOptions) )
-    , '( 'TS.Property "data", TS.Optional (TS.Any) )
-    , '( 'TS.Property "drilldown", TS.Optional (TS.Any) )
-    , '( 'TS.Property "exporting", TS.Optional (HighchartsExportingOptions) )
-    , '( 'TS.Property "labels", TS.Optional (HighchartsLabelsOptions) )
-    , '( 'TS.Property "legend", TS.Optional (HighchartsLegendOptions) )
-    , '( 'TS.Property "loading", TS.Optional (HighchartsLoadingOptions) )
-    , '( 'TS.Property "navigation", TS.Optional (HighchartsNavigationOptions) )
-    , '( 'TS.Property "noData", TS.Optional (TS.Any) )
-    , '( 'TS.Property "pane", TS.Optional (HighchartsPaneOptions) )
-    , '( 'TS.Property "plotOptions", TS.Optional (HighchartsPlotOptions) )
-    , '( 'TS.Property "series", TS.Optional (TS.Array (HighchartsIndividualSeriesOptions)) )
-    , '( 'TS.Property "subtitle", TS.Optional (HighchartsSubtitleOptions) )
-    , '( 'TS.Property "title", TS.Optional (HighchartsTitleOptions) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "xAxis", TS.Optional (HighchartsAxisOptions) )
-    , '( 'TS.Property "yAxis", TS.Optional (HighchartsAxisOptions) )
+  ('[ "chart" ::? HighchartsChartOptions
+    , "colors" ::? (TS.Array TS.String)
+    , "credits" ::? HighchartsCreditsOptions
+    , "data" ::? TS.Any
+    , "drilldown" ::? TS.Any
+    , "exporting" ::? HighchartsExportingOptions
+    , "labels" ::? HighchartsLabelsOptions
+    , "legend" ::? HighchartsLegendOptions
+    , "loading" ::? HighchartsLoadingOptions
+    , "navigation" ::? HighchartsNavigationOptions
+    , "noData" ::? TS.Any
+    , "pane" ::? HighchartsPaneOptions
+    , "plotOptions" ::? HighchartsPlotOptions
+    , "series" ::? (TS.Array HighchartsIndividualSeriesOptions)
+    , "subtitle" ::? HighchartsSubtitleOptions
+    , "title" ::? HighchartsTitleOptions
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "xAxis" ::? HighchartsAxisOptions
+    , "yAxis" ::? HighchartsAxisOptions
     ])
 
 newtype HighchartsPaneBackground = HighchartsPaneBackground (GHCJS.JSRef (HighchartsPaneBackground))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPaneBackground =
-  ('[ '( 'TS.Property "backgroundColor", (TS.String) :|: (HighchartsGradient) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "innerRadius", TS.Optional (TS.String) )
-    , '( 'TS.Property "outerRadius", TS.Optional (TS.String) )
+  ('[ "backgroundColor" ::: (TS.String :|: HighchartsGradient)
+    , "borderColor" ::? TS.String
+    , "borderWidth" ::? TS.Number
+    , "innerRadius" ::? TS.String
+    , "outerRadius" ::? TS.String
     ])
 
 newtype HighchartsPaneOptions = HighchartsPaneOptions (GHCJS.JSRef (HighchartsPaneOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPaneOptions =
-  ('[ '( 'TS.Property "background", TS.Optional (TS.Array (HighchartsPaneBackground)) )
-    , '( 'TS.Property "center", TS.Optional (((TS.Number) :|: (TS.String), (TS.Number) :|: (TS.String))) )
-    , '( 'TS.Property "endAngle", TS.Optional (TS.Number) )
-    , '( 'TS.Property "size", TS.Optional ((TS.Number) :|: (TS.String)) )
-    , '( 'TS.Property "startAngle", TS.Optional (TS.Number) )
+  ('[ "background" ::? (TS.Array HighchartsPaneBackground)
+    , "center" ::? ((TS.Number :|: TS.String), (TS.Number :|: TS.String))
+    , "endAngle" ::? TS.Number
+    , "size" ::? (TS.Number :|: TS.String)
+    , "startAngle" ::? TS.Number
     ])
 
 newtype HighchartsPieChart = HighchartsPieChart (GHCJS.JSRef (HighchartsPieChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPieChart =
-  ('[ '( 'TS.Property "allowPointSelect", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "center", TS.Optional (TS.Array (TS.String)) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "dataLabels", TS.Optional (HighchartsDataLabels) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "id", TS.Optional (TS.String) )
-    , '( 'TS.Property "ignoreHiddenPoint", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "innerSize", TS.Optional ((TS.Number) :|: (TS.String)) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "marker", TS.Optional (HighchartsMarker) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "allowPointSelect" ::? TS.Boolean
+    , "animation" ::? TS.Boolean
+    , "borderColor" ::? TS.String
+    , "borderWidth" ::? TS.Number
+    , "center" ::? (TS.Array TS.String)
+    , "color" ::? TS.String
+    , "cursor" ::? TS.String
+    , "dataLabels" ::? HighchartsDataLabels
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "id" ::? TS.String
+    , "ignoreHiddenPoint" ::? TS.Boolean
+    , "innerSize" ::? (TS.Number :|: TS.String)
+    , "lineWidth" ::? TS.Number
+    , "marker" ::? HighchartsMarker
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "pointPlacement", TS.Optional (TS.String) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "size", TS.Optional ((TS.Number) :|: (TS.String)) )
-    , '( 'TS.Property "slicedOffset", TS.Optional (TS.Number) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsAreaStates )
+    , "pointPlacement" ::? TS.String
+    , "selected" ::? TS.Boolean
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "showInLegend" ::? TS.Boolean
+    , "size" ::? (TS.Number :|: TS.String)
+    , "slicedOffset" ::? TS.Number
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsAreaStates
           ])
-      ) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "zIndex", TS.Optional (TS.Number) )
+    , "stickyTracking" ::? TS.Boolean
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "visible" ::? TS.Boolean
+    , "zIndex" ::? TS.Number
     ])
 
 newtype HighchartsPieChartSeriesOptions = HighchartsPieChartSeriesOptions (GHCJS.JSRef (HighchartsPieChartSeriesOptions))
@@ -1181,124 +1158,124 @@ type instance TS.Members HighchartsPieChartSeriesOptions = TS.Extends '[Highchar
 newtype HighchartsPivot = HighchartsPivot (GHCJS.JSRef (HighchartsPivot))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPivot =
-  ('[ '( 'TS.Property "backgroundColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "radius", TS.Optional (TS.Number) )
+  ('[ "backgroundColor" ::? TS.String
+    , "borderColor" ::? TS.String
+    , "borderWidth" ::? TS.Number
+    , "radius" ::? TS.Number
     ])
 
 newtype HighchartsPlotBands = HighchartsPlotBands (GHCJS.JSRef (HighchartsPlotBands))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPlotBands =
-  ('[ '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsMousePlotEvents) )
-    , '( 'TS.Property "from", TS.Optional (TS.Number) )
-    , '( 'TS.Property "id", TS.Optional (TS.String) )
-    , '( 'TS.Property "label", TS.Optional (HighchartsPlotLabel) )
-    , '( 'TS.Property "to", TS.Optional (TS.Number) )
-    , '( 'TS.Property "zIndex", TS.Optional (TS.Number) )
+  ('[ "color" ::? TS.String
+    , "events" ::? HighchartsMousePlotEvents
+    , "from" ::? TS.Number
+    , "id" ::? TS.String
+    , "label" ::? HighchartsPlotLabel
+    , "to" ::? TS.Number
+    , "zIndex" ::? TS.Number
     ])
 
 newtype HighchartsPlotEvents = HighchartsPlotEvents (GHCJS.JSRef (HighchartsPlotEvents))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPlotEvents =
-  ('[ '( 'TS.Property "checkboxClick", TS.Optional ((HighchartsAreaCheckboxEvent -> TS.Boolean)) )
-    , '( 'TS.Property "click", TS.Optional ((HighchartsAreaClickEvent -> TS.Void)) )
-    , '( 'TS.Property "hide", TS.Optional ((TS.Void)) )
-    , '( 'TS.Property "legendItemClick", TS.Optional ((Event -> TS.Boolean)) )
-    , '( 'TS.Property "mouseOut", TS.Optional ((Event -> TS.Void)) )
-    , '( 'TS.Property "mouseOver", TS.Optional ((Event -> TS.Void)) )
-    , '( 'TS.Property "show", TS.Optional ((TS.Void)) )
+  ('[ "checkboxClick" ::? (HighchartsAreaCheckboxEvent -> TS.Boolean)
+    , "click" ::? (HighchartsAreaClickEvent -> TS.Void)
+    , "hide" ::? (TS.Void)
+    , "legendItemClick" ::? (Event -> TS.Boolean)
+    , "mouseOut" ::? (Event -> TS.Void)
+    , "mouseOver" ::? (Event -> TS.Void)
+    , "show" ::? (TS.Void)
     ])
 
 newtype HighchartsPlotLabel = HighchartsPlotLabel (GHCJS.JSRef (HighchartsPlotLabel))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPlotLabel =
-  ('[ '( 'TS.Property "align", TS.Optional (TS.String) )
-    , '( 'TS.Property "rotation", TS.Optional (TS.Number) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "text", TS.Optional (TS.String) )
-    , '( 'TS.Property "textAlign", TS.Optional (TS.String) )
-    , '( 'TS.Property "x", TS.Optional (TS.Number) )
-    , '( 'TS.Property "y", TS.Optional (TS.Number) )
+  ('[ "align" ::? TS.String
+    , "rotation" ::? TS.Number
+    , "style" ::? HighchartsCSSObject
+    , "text" ::? TS.String
+    , "textAlign" ::? TS.String
+    , "x" ::? TS.Number
+    , "y" ::? TS.Number
     ])
 
 newtype HighchartsPlotLines = HighchartsPlotLines (GHCJS.JSRef (HighchartsPlotLines))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPlotLines =
-  ('[ '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "dashStyle", TS.Optional (TS.String) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsMousePlotEvents) )
-    , '( 'TS.Property "id", TS.Optional (TS.String) )
-    , '( 'TS.Property "label", TS.Optional (HighchartsPlotLabel) )
-    , '( 'TS.Property "value", TS.Optional (TS.Number) )
-    , '( 'TS.Property "width", TS.Optional (TS.Number) )
-    , '( 'TS.Property "zIndex", TS.Optional (TS.Number) )
+  ('[ "color" ::? TS.String
+    , "dashStyle" ::? TS.String
+    , "events" ::? HighchartsMousePlotEvents
+    , "id" ::? TS.String
+    , "label" ::? HighchartsPlotLabel
+    , "value" ::? TS.Number
+    , "width" ::? TS.Number
+    , "zIndex" ::? TS.Number
     ])
 
 newtype HighchartsPlotOptions = HighchartsPlotOptions (GHCJS.JSRef (HighchartsPlotOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPlotOptions =
-  ('[ '( 'TS.Property "area", TS.Optional (HighchartsAreaChart) )
-    , '( 'TS.Property "arearange", TS.Optional (HighchartsAreaRangeChart) )
-    , '( 'TS.Property "areaspline", TS.Optional (HighchartsAreaSplineChart) )
-    , '( 'TS.Property "areasplinerange", TS.Optional (HighchartsAreaSplineRangeChart) )
-    , '( 'TS.Property "bar", TS.Optional (HighchartsBarChart) )
-    , '( 'TS.Property "boxplot", TS.Optional (HighchartsBoxPlotChart) )
-    , '( 'TS.Property "bubble", TS.Optional (HighchartsBubbleChart) )
-    , '( 'TS.Property "column", TS.Optional (HighchartsColumnChart) )
-    , '( 'TS.Property "columnrange", TS.Optional (HighchartsColumnRangeChart) )
-    , '( 'TS.Property "errorbar", TS.Optional (HighchartsErrorBarChart) )
-    , '( 'TS.Property "funnel", TS.Optional (HighchartsFunnelChart) )
-    , '( 'TS.Property "gauge", TS.Optional (HighchartsGaugeChart) )
-    , '( 'TS.Property "heatmap", TS.Optional (HighchartsHeatMapChart) )
-    , '( 'TS.Property "line", TS.Optional (HighchartsLineChart) )
-    , '( 'TS.Property "pie", TS.Optional (HighchartsPieChart) )
-    , '( 'TS.Property "polygon", TS.Optional (HighchartsPolygonChart) )
-    , '( 'TS.Property "pyramid", TS.Optional (HighchartsPyramidChart) )
-    , '( 'TS.Property "scatter", TS.Optional (HighchartsScatterChart) )
-    , '( 'TS.Property "series", TS.Optional (HighchartsSeriesChart) )
-    , '( 'TS.Property "solidgauge", TS.Optional (HighchartsSolidGaugeChart) )
-    , '( 'TS.Property "spline", TS.Optional (HighchartsSplineChart) )
-    , '( 'TS.Property "treemap", TS.Optional (HighchartsTreeMapChart) )
-    , '( 'TS.Property "waterfall", TS.Optional (HighchartsWaterFallChart) )
+  ('[ "area" ::? HighchartsAreaChart
+    , "arearange" ::? HighchartsAreaRangeChart
+    , "areaspline" ::? HighchartsAreaSplineChart
+    , "areasplinerange" ::? HighchartsAreaSplineRangeChart
+    , "bar" ::? HighchartsBarChart
+    , "boxplot" ::? HighchartsBoxPlotChart
+    , "bubble" ::? HighchartsBubbleChart
+    , "column" ::? HighchartsColumnChart
+    , "columnrange" ::? HighchartsColumnRangeChart
+    , "errorbar" ::? HighchartsErrorBarChart
+    , "funnel" ::? HighchartsFunnelChart
+    , "gauge" ::? HighchartsGaugeChart
+    , "heatmap" ::? HighchartsHeatMapChart
+    , "line" ::? HighchartsLineChart
+    , "pie" ::? HighchartsPieChart
+    , "polygon" ::? HighchartsPolygonChart
+    , "pyramid" ::? HighchartsPyramidChart
+    , "scatter" ::? HighchartsScatterChart
+    , "series" ::? HighchartsSeriesChart
+    , "solidgauge" ::? HighchartsSolidGaugeChart
+    , "spline" ::? HighchartsSplineChart
+    , "treemap" ::? HighchartsTreeMapChart
+    , "waterfall" ::? HighchartsWaterFallChart
     ])
 
 newtype HighchartsPlotPoint = HighchartsPlotPoint (GHCJS.JSRef (HighchartsPlotPoint))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPlotPoint =
-  ('[ '( 'TS.Property "plotX", TS.Number )
-    , '( 'TS.Property "plotY", TS.Number )
+  ('[ "plotX" ::: TS.Number
+    , "plotY" ::: TS.Number
     ])
 
 newtype HighchartsPointEvents = HighchartsPointEvents (GHCJS.JSRef (HighchartsPointEvents))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPointEvents =
-  ('[ '( 'TS.Property "click", TS.Optional ((Event -> TS.Boolean)) )
-    , '( 'TS.Property "mouseOut", TS.Optional ((Event -> TS.Void)) )
-    , '( 'TS.Property "mouseOver", TS.Optional ((Event -> TS.Void)) )
-    , '( 'TS.Property "remove", TS.Optional ((Event -> TS.Boolean)) )
-    , '( 'TS.Property "select", TS.Optional ((Event -> TS.Boolean)) )
-    , '( 'TS.Property "unselect", TS.Optional ((Event -> TS.Boolean)) )
-    , '( 'TS.Property "update", TS.Optional ((Event -> TS.Boolean)) )
+  ('[ "click" ::? (Event -> TS.Boolean)
+    , "mouseOut" ::? (Event -> TS.Void)
+    , "mouseOver" ::? (Event -> TS.Void)
+    , "remove" ::? (Event -> TS.Boolean)
+    , "select" ::? (Event -> TS.Boolean)
+    , "unselect" ::? (Event -> TS.Boolean)
+    , "update" ::? (Event -> TS.Boolean)
     ])
 
 newtype HighchartsPointObject = HighchartsPointObject (GHCJS.JSRef (HighchartsPointObject))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPointObject =
-  ('[ '( 'TS.Property "category", (TS.String) :|: (TS.Number) )
-    , '( 'TS.Property "percentage", TS.Number )
-    , TS.Method "remove" (TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) -> TS.Void)
-    , TS.Method "select" (TS.Void)
-    , TS.Method "select" (TS.Boolean -> TS.Void)
-    , TS.Method "select" (TS.Boolean -> TS.Boolean -> TS.Void)
-    , '( 'TS.Property "selected", TS.Boolean )
-    , '( 'TS.Property "series", HighchartsSeriesObject )
-    , TS.Method "slice" (TS.Optional (TS.Boolean) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) -> TS.Void)
-    , '( 'TS.Property "total", TS.Number )
-    , TS.Method "update" ((TS.Number) :|: (((TS.Number, TS.Number)) :|: (HighchartsDataPoint)) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) -> TS.Void)
-    , '( 'TS.Property "x", TS.Number )
-    , '( 'TS.Property "y", TS.Number )
+  ('[ "category" ::: (TS.String :|: TS.Number)
+    , "percentage" ::: TS.Number
+    , "remove" ::: TS.Fun (TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean :|: HighchartsAnimation)) -> TS.Void)
+    , "select" ::: TS.Fun (TS.Void)
+    , "select" ::: TS.Fun (TS.Boolean -> TS.Void)
+    , "select" ::: TS.Fun (TS.Boolean -> TS.Boolean -> TS.Void)
+    , "selected" ::: TS.Boolean
+    , "series" ::: HighchartsSeriesObject
+    , "slice" ::: TS.Fun (TS.Optional (TS.Boolean) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean :|: HighchartsAnimation)) -> TS.Void)
+    , "total" ::: TS.Number
+    , "update" ::: TS.Fun ((TS.Number :|: ((TS.Number, TS.Number) :|: HighchartsDataPoint)) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean :|: HighchartsAnimation)) -> TS.Void)
+    , "x" ::: TS.Number
+    , "y" ::: TS.Number
     ])
 
 newtype HighchartsPolygonChart = HighchartsPolygonChart (GHCJS.JSRef (HighchartsPolygonChart))
@@ -1314,10 +1291,10 @@ type instance TS.Members HighchartsPolygonChartSeriesOptions = TS.Extends '[High
 newtype HighchartsPosition = HighchartsPosition (GHCJS.JSRef (HighchartsPosition))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsPosition =
-  ('[ '( 'TS.Property "align", TS.Optional (TS.String) )
-    , '( 'TS.Property "verticalAlign", TS.Optional (TS.String) )
-    , '( 'TS.Property "x", TS.Optional (TS.Number) )
-    , '( 'TS.Property "y", TS.Optional (TS.Number) )
+  ('[ "align" ::? TS.String
+    , "verticalAlign" ::? TS.String
+    , "x" ::? TS.Number
+    , "y" ::? TS.Number
     ])
 
 newtype HighchartsPyramidChart = HighchartsPyramidChart (GHCJS.JSRef (HighchartsPyramidChart))
@@ -1333,86 +1310,84 @@ type instance TS.Members HighchartsPyramidChartSeriesOptions = TS.Extends '[High
 newtype HighchartsRangeDataLabels = HighchartsRangeDataLabels (GHCJS.JSRef (HighchartsRangeDataLabels))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsRangeDataLabels =
-  ('[ '( 'TS.Property "align", TS.Optional (TS.String) )
-    , '( 'TS.Property "backgroundColor", TS.Optional ((TS.String) :|: (HighchartsGradient)) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderRadius", TS.Optional (TS.Number) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "crop", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "defer", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "enabled", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "format", TS.Optional (TS.String) )
-    , '( 'TS.Property "formatter", TS.Optional ((TS.Any)) )
-    , '( 'TS.Property "inside", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "overflow", TS.Optional (TS.String) )
-    , '( 'TS.Property "padding", TS.Optional (TS.Number) )
-    , '( 'TS.Property "rotation", TS.Optional (TS.Number) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "useHTML", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "verticalAlign", TS.Optional (TS.String) )
-    , '( 'TS.Property "xHigh", TS.Optional (TS.Number) )
-    , '( 'TS.Property "xLow", TS.Optional (TS.Number) )
-    , '( 'TS.Property "yHigh", TS.Optional (TS.Number) )
-    , '( 'TS.Property "yLow", TS.Optional (TS.Number) )
-    , '( 'TS.Property "zIndex", TS.Optional (TS.Number) )
+  ('[ "align" ::? TS.String
+    , "backgroundColor" ::? (TS.String :|: HighchartsGradient)
+    , "borderColor" ::? TS.String
+    , "borderRadius" ::? TS.Number
+    , "borderWidth" ::? TS.Number
+    , "color" ::? TS.String
+    , "crop" ::? TS.Boolean
+    , "defer" ::? TS.Boolean
+    , "enabled" ::? TS.Boolean
+    , "format" ::? TS.String
+    , "formatter" ::? (TS.Any)
+    , "inside" ::? TS.Boolean
+    , "overflow" ::? TS.String
+    , "padding" ::? TS.Number
+    , "rotation" ::? TS.Number
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "style" ::? HighchartsCSSObject
+    , "useHTML" ::? TS.Boolean
+    , "verticalAlign" ::? TS.String
+    , "xHigh" ::? TS.Number
+    , "xLow" ::? TS.Number
+    , "yHigh" ::? TS.Number
+    , "yLow" ::? TS.Number
+    , "zIndex" ::? TS.Number
     ])
 
 newtype HighchartsRenderer = HighchartsRenderer (GHCJS.JSRef (HighchartsRenderer))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsRenderer =
-  ('[ '( 'TS.Constructor, HTMLElement -> TS.Number -> TS.Number -> HighchartsRendererObject )
+  ('[ TS.Constructor (HTMLElement -> TS.Number -> TS.Number -> HighchartsRendererObject)
     ])
 
 newtype HighchartsRendererObject = HighchartsRendererObject (GHCJS.JSRef (HighchartsRendererObject))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsRendererObject =
-  ('[ TS.Method "arc" (TS.Number -> TS.Number -> TS.Number -> TS.Number -> TS.Number -> TS.Number -> HighchartsElementObject)
-    , TS.Method "circle" (TS.Number -> TS.Number -> TS.Number -> HighchartsElementObject)
-    , TS.Method "g" (TS.String -> HighchartsElementObject)
-    , TS.Method "image" (TS.String -> TS.Number -> TS.Number -> TS.Number -> TS.Number -> HighchartsElementObject)
-    , TS.Method "path" (TS.Array (TS.Any) -> HighchartsElementObject)
-    , TS.Method "rect" (TS.Number -> TS.Number -> TS.Number -> TS.Number -> TS.Number -> HighchartsElementObject)
-    , TS.Method "text" (TS.String -> TS.Number -> TS.Number -> HighchartsElementObject)
+  ('[ "arc" ::: TS.Fun (TS.Number -> TS.Number -> TS.Number -> TS.Number -> TS.Number -> TS.Number -> HighchartsElementObject)
+    , "circle" ::: TS.Fun (TS.Number -> TS.Number -> TS.Number -> HighchartsElementObject)
+    , "g" ::: TS.Fun (TS.String -> HighchartsElementObject)
+    , "image" ::: TS.Fun (TS.String -> TS.Number -> TS.Number -> TS.Number -> TS.Number -> HighchartsElementObject)
+    , "path" ::: TS.Fun ((TS.Array TS.Any) -> HighchartsElementObject)
+    , "rect" ::: TS.Fun (TS.Number -> TS.Number -> TS.Number -> TS.Number -> TS.Number -> HighchartsElementObject)
+    , "text" ::: TS.Fun (TS.String -> TS.Number -> TS.Number -> HighchartsElementObject)
     ])
 
 newtype HighchartsScatterChart = HighchartsScatterChart (GHCJS.JSRef (HighchartsScatterChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsScatterChart =
-  ('[ '( 'TS.Property "allowPointSelect", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "connectNulls", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "cropThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "dashStyle", TS.Optional (TS.String) )
-    , '( 'TS.Property "dataLabels", TS.Optional (HighchartsDataLabels) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "id", TS.Optional (TS.String) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "marker", TS.Optional (HighchartsMarker) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "allowPointSelect" ::? TS.Boolean
+    , "animation" ::? TS.Boolean
+    , "color" ::? TS.String
+    , "connectNulls" ::? TS.Boolean
+    , "cropThreshold" ::? TS.Number
+    , "cursor" ::? TS.String
+    , "dashStyle" ::? TS.String
+    , "dataLabels" ::? HighchartsDataLabels
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "id" ::? TS.String
+    , "lineWidth" ::? TS.Number
+    , "marker" ::? HighchartsMarker
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "pointInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPlacement", TS.Optional (TS.String) )
-    , '( 'TS.Property "pointStart", TS.Optional (TS.Number) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "showCheckbox", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsAreaStates )
+    , "pointInterval" ::? TS.Number
+    , "pointPlacement" ::? TS.String
+    , "pointStart" ::? TS.Number
+    , "selected" ::? TS.Boolean
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "showCheckbox" ::? TS.Boolean
+    , "showInLegend" ::? TS.Boolean
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsAreaStates
           ])
-      ) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "turboThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "zIndex", TS.Optional (TS.Number) )
+    , "stickyTracking" ::? TS.Boolean
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "turboThreshold" ::? TS.Number
+    , "visible" ::? TS.Boolean
+    , "zIndex" ::? TS.Number
     ])
 
 newtype HighchartsScatterChartSeriesOptions = HighchartsScatterChartSeriesOptions (GHCJS.JSRef (HighchartsScatterChartSeriesOptions))
@@ -1423,92 +1398,90 @@ type instance TS.Members HighchartsScatterChartSeriesOptions = TS.Extends '[High
 newtype HighchartsSelectionEvent = HighchartsSelectionEvent (GHCJS.JSRef (HighchartsSelectionEvent))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsSelectionEvent = TS.Extends '[Event]
-  ('[ '( 'TS.Property "xAxis", TS.Array (HighchartsAxisOptions) )
-    , '( 'TS.Property "yAxis", TS.Array (HighchartsAxisOptions) )
+  ('[ "xAxis" ::: (TS.Array HighchartsAxisOptions)
+    , "yAxis" ::: (TS.Array HighchartsAxisOptions)
     ])
 
 newtype HighchartsSeriesChart = HighchartsSeriesChart (GHCJS.JSRef (HighchartsSeriesChart))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsSeriesChart =
-  ('[ '( 'TS.Property "allowPointSelect", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "connectEnds", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "connectNulls", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "cropThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "cursor", TS.Optional (TS.String) )
-    , '( 'TS.Property "dashStyle", TS.Optional (TS.String) )
-    , '( 'TS.Property "dataLabels", TS.Optional (HighchartsDataLabels) )
-    , '( 'TS.Property "enableMouseTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "events", TS.Optional (HighchartsPlotEvents) )
-    , '( 'TS.Property "lineWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "marker", TS.Optional (HighchartsMarker) )
-    , '( 'TS.Property "point", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "events", HighchartsPointEvents )
+  ('[ "allowPointSelect" ::? TS.Boolean
+    , "animation" ::? TS.Boolean
+    , "color" ::? TS.String
+    , "connectEnds" ::? TS.Boolean
+    , "connectNulls" ::? TS.Boolean
+    , "cropThreshold" ::? TS.Number
+    , "cursor" ::? TS.String
+    , "dashStyle" ::? TS.String
+    , "dataLabels" ::? HighchartsDataLabels
+    , "enableMouseTracking" ::? TS.Boolean
+    , "events" ::? HighchartsPlotEvents
+    , "lineWidth" ::? TS.Number
+    , "marker" ::? HighchartsMarker
+    , "point" ::? TS.Obj
+        ('[ "events" ::: HighchartsPointEvents
           ])
-      ) )
-    , '( 'TS.Property "pointInterval", TS.Optional (TS.Number) )
-    , '( 'TS.Property "pointPlacement", TS.Optional (TS.String) )
-    , '( 'TS.Property "pointStart", TS.Optional (TS.Number) )
-    , '( 'TS.Property "selected", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "shadow", TS.Optional ((TS.Boolean) :|: (HighchartsShadow)) )
-    , '( 'TS.Property "showCheckbox", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "showInLegend", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "stacking", TS.Optional (TS.String) )
-    , '( 'TS.Property "states", TS.Optional (TS.Object
-        ('[ '( 'TS.Property "hover", HighchartsAreaStates )
+    , "pointInterval" ::? TS.Number
+    , "pointPlacement" ::? TS.String
+    , "pointStart" ::? TS.Number
+    , "selected" ::? TS.Boolean
+    , "shadow" ::? (TS.Boolean :|: HighchartsShadow)
+    , "showCheckbox" ::? TS.Boolean
+    , "showInLegend" ::? TS.Boolean
+    , "stacking" ::? TS.String
+    , "states" ::? TS.Obj
+        ('[ "hover" ::: HighchartsAreaStates
           ])
-      ) )
-    , '( 'TS.Property "stickyTracking", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "tooltip", TS.Optional (HighchartsTooltipOptions) )
-    , '( 'TS.Property "turboThreshold", TS.Optional (TS.Number) )
-    , '( 'TS.Property "visible", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "zIndex", TS.Optional (TS.Number) )
+    , "stickyTracking" ::? TS.Boolean
+    , "tooltip" ::? HighchartsTooltipOptions
+    , "turboThreshold" ::? TS.Number
+    , "visible" ::? TS.Boolean
+    , "zIndex" ::? TS.Number
     ])
 
 newtype HighchartsSeriesObject = HighchartsSeriesObject (GHCJS.JSRef (HighchartsSeriesObject))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsSeriesObject =
-  ('[ TS.Method "addPoint" ((TS.Number) :|: (((TS.Number, TS.Number)) :|: (HighchartsDataPoint)) -> TS.Optional (TS.Boolean) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) -> TS.Void)
-    , '( 'TS.Property "chart", HighchartsChartObject )
-    , '( 'TS.Property "data", TS.Array (HighchartsPointObject) )
-    , TS.Method "hide" (TS.Void)
-    , '( 'TS.Property "name", TS.String )
-    , '( 'TS.Property "options", HighchartsSeriesOptions )
-    , TS.Method "remove" (TS.Optional (TS.Boolean) -> TS.Void)
-    , TS.Method "select" (TS.Optional (TS.Boolean) -> TS.Void)
-    , '( 'TS.Property "selected", TS.Boolean )
-    , TS.Method "setData" ((TS.Array (TS.Number)) :|: ((TS.Array (TS.Array (TS.Number))) :|: (TS.Array (HighchartsDataPoint))) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean) :|: (HighchartsAnimation)) -> TS.Optional (TS.Boolean) -> TS.Void)
-    , TS.Method "setVisible" (TS.Boolean -> TS.Optional (TS.Boolean) -> TS.Void)
-    , TS.Method "show" (TS.Void)
-    , '( 'TS.Property "type", TS.String )
-    , TS.Method "update" (HighchartsSeriesOptions -> TS.Optional (TS.Boolean) -> TS.Void)
-    , '( 'TS.Property "visible", TS.Boolean )
-    , '( 'TS.Property "xAxis", HighchartsAxisObject )
-    , '( 'TS.Property "yAxis", HighchartsAxisObject )
+  ('[ "addPoint" ::: TS.Fun ((TS.Number :|: ((TS.Number, TS.Number) :|: HighchartsDataPoint)) -> TS.Optional (TS.Boolean) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean :|: HighchartsAnimation)) -> TS.Void)
+    , "chart" ::: HighchartsChartObject
+    , "data" ::: (TS.Array HighchartsPointObject)
+    , "hide" ::: TS.Fun (TS.Void)
+    , "name" ::: TS.String
+    , "options" ::: HighchartsSeriesOptions
+    , "remove" ::: TS.Fun (TS.Optional (TS.Boolean) -> TS.Void)
+    , "select" ::: TS.Fun (TS.Optional (TS.Boolean) -> TS.Void)
+    , "selected" ::: TS.Boolean
+    , "setData" ::: TS.Fun (((TS.Array TS.Number) :|: ((TS.Array (TS.Array TS.Number)) :|: (TS.Array HighchartsDataPoint))) -> TS.Optional (TS.Boolean) -> TS.Optional ((TS.Boolean :|: HighchartsAnimation)) -> TS.Optional (TS.Boolean) -> TS.Void)
+    , "setVisible" ::: TS.Fun (TS.Boolean -> TS.Optional (TS.Boolean) -> TS.Void)
+    , "show" ::: TS.Fun (TS.Void)
+    , "type" ::: TS.String
+    , "update" ::: TS.Fun (HighchartsSeriesOptions -> TS.Optional (TS.Boolean) -> TS.Void)
+    , "visible" ::: TS.Boolean
+    , "xAxis" ::: HighchartsAxisObject
+    , "yAxis" ::: HighchartsAxisObject
     ])
 
 newtype HighchartsSeriesOptions = HighchartsSeriesOptions (GHCJS.JSRef (HighchartsSeriesOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsSeriesOptions = TS.Extends '[HighchartsSeriesChart]
-  ('[ '( 'TS.Property "type", TS.Optional (TS.String) )
-    , '( 'TS.Property "data", TS.Optional ((TS.Array (TS.Number)) :|: ((TS.Array (TS.Array (TS.Number))) :|: (TS.Array (HighchartsDataPoint)))) )
-    , '( 'TS.Property "index", TS.Optional (TS.Number) )
-    , '( 'TS.Property "legendIndex", TS.Optional (TS.Number) )
-    , '( 'TS.Property "name", TS.Optional (TS.String) )
-    , '( 'TS.Property "stack", TS.Optional ((TS.String) :|: (TS.Number)) )
-    , '( 'TS.Property "xAxis", TS.Optional ((TS.String) :|: (TS.Number)) )
-    , '( 'TS.Property "yAxis", TS.Optional ((TS.String) :|: (TS.Number)) )
+  ('[ "type" ::? TS.String
+    , "data" ::? ((TS.Array TS.Number) :|: ((TS.Array (TS.Array TS.Number)) :|: (TS.Array HighchartsDataPoint)))
+    , "index" ::? TS.Number
+    , "legendIndex" ::? TS.Number
+    , "name" ::? TS.String
+    , "stack" ::? (TS.String :|: TS.Number)
+    , "xAxis" ::? (TS.String :|: TS.Number)
+    , "yAxis" ::? (TS.String :|: TS.Number)
     ])
 
 newtype HighchartsShadow = HighchartsShadow (GHCJS.JSRef (HighchartsShadow))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsShadow =
-  ('[ '( 'TS.Property "color", TS.Optional (TS.String) )
-    , '( 'TS.Property "offsetX", TS.Optional (TS.Number) )
-    , '( 'TS.Property "offsetY", TS.Optional (TS.Number) )
-    , '( 'TS.Property "opacity", TS.Optional (TS.Number) )
-    , '( 'TS.Property "width", TS.Optional (TS.Number) )
+  ('[ "color" ::? TS.String
+    , "offsetX" ::? TS.Number
+    , "offsetY" ::? TS.Number
+    , "opacity" ::? TS.Number
+    , "width" ::? TS.Number
     ])
 
 newtype HighchartsSolidGaugeChart = HighchartsSolidGaugeChart (GHCJS.JSRef (HighchartsSolidGaugeChart))
@@ -1534,62 +1507,62 @@ type instance TS.Members HighchartsSplineChartSeriesOptions = TS.Extends '[Highc
 newtype HighchartsStatic = HighchartsStatic (GHCJS.JSRef (HighchartsStatic))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsStatic =
-  ('[ '( 'TS.Property "Chart", HighchartsChart )
-    , '( 'TS.Property "Renderer", HighchartsRenderer )
-    , TS.Method "Color" ((TS.String) :|: (HighchartsGradient) -> (TS.String) :|: (HighchartsGradient))
-    , TS.Method "dateFormat" (TS.String -> TS.Optional (TS.Number) -> TS.Optional (TS.Boolean) -> TS.String)
-    , TS.Method "numberFormat" (TS.Number -> TS.Optional (TS.Number) -> TS.Optional (TS.String) -> TS.Optional (TS.String) -> TS.String)
-    , TS.Method "setOptions" (HighchartsGlobalOptions -> HighchartsOptions)
-    , TS.Method "getOptions" (HighchartsOptions)
-    , TS.Method "map" (TS.Array (TS.Any) -> Function -> TS.Array (TS.Any))
+  ('[ "Chart" ::: HighchartsChart
+    , "Renderer" ::: HighchartsRenderer
+    , "Color" ::: TS.Fun ((TS.String :|: HighchartsGradient) -> (TS.String :|: HighchartsGradient))
+    , "dateFormat" ::: TS.Fun (TS.String -> TS.Optional (TS.Number) -> TS.Optional (TS.Boolean) -> TS.String)
+    , "numberFormat" ::: TS.Fun (TS.Number -> TS.Optional (TS.Number) -> TS.Optional (TS.String) -> TS.Optional (TS.String) -> TS.String)
+    , "setOptions" ::: TS.Fun (HighchartsGlobalOptions -> HighchartsOptions)
+    , "getOptions" ::: TS.Fun (HighchartsOptions)
+    , "map" ::: TS.Fun ((TS.Array TS.Any) -> Function -> (TS.Array TS.Any))
     ])
 
 newtype HighchartsSubtitleOptions = HighchartsSubtitleOptions (GHCJS.JSRef (HighchartsSubtitleOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsSubtitleOptions =
-  ('[ '( 'TS.Property "align", TS.Optional (TS.String) )
-    , '( 'TS.Property "verticalAlign", TS.Optional (TS.String) )
-    , '( 'TS.Property "floating", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "text", TS.Optional (TS.String) )
-    , '( 'TS.Property "useHTML", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "x", TS.Optional (TS.Number) )
-    , '( 'TS.Property "y", TS.Optional (TS.Number) )
+  ('[ "align" ::? TS.String
+    , "verticalAlign" ::? TS.String
+    , "floating" ::? TS.Boolean
+    , "style" ::? HighchartsCSSObject
+    , "text" ::? TS.String
+    , "useHTML" ::? TS.Boolean
+    , "x" ::? TS.Number
+    , "y" ::? TS.Number
     ])
 
 newtype HighchartsTitleOptions = HighchartsTitleOptions (GHCJS.JSRef (HighchartsTitleOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsTitleOptions = TS.Extends '[HighchartsSubtitleOptions]
-  ('[ '( 'TS.Property "margin", TS.Optional (TS.Number) )
+  ('[ "margin" ::? TS.Number
     ])
 
 newtype HighchartsTooltipOptions = HighchartsTooltipOptions (GHCJS.JSRef (HighchartsTooltipOptions))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members HighchartsTooltipOptions =
-  ('[ '( 'TS.Property "animation", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "backgroundColor", TS.Optional ((TS.String) :|: (HighchartsGradient)) )
-    , '( 'TS.Property "borderColor", TS.Optional (TS.String) )
-    , '( 'TS.Property "borderRadius", TS.Optional (TS.Number) )
-    , '( 'TS.Property "borderWidth", TS.Optional (TS.Number) )
-    , '( 'TS.Property "crosshairs", TS.Optional ((TS.Boolean) :|: (((TS.Boolean, TS.Boolean)) :|: ((HighchartsCrosshairObject) :|: ((HighchartsCrosshairObject, HighchartsCrosshairObject))))) )
-    , '( 'TS.Property "enabled", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "footerFormat", TS.Optional (TS.String) )
-    , '( 'TS.Property "formatter", TS.Optional ((TS.Any)) )
-    , '( 'TS.Property "pointFormat", TS.Optional (TS.String) )
-    , '( 'TS.Property "positioner", TS.Optional ((TS.Number -> TS.Number -> HighchartsPlotPoint -> TS.Object
-        ('[ '( 'TS.Property "x", TS.Number )
-          , '( 'TS.Property "y", TS.Number )
+  ('[ "animation" ::? TS.Boolean
+    , "backgroundColor" ::? (TS.String :|: HighchartsGradient)
+    , "borderColor" ::? TS.String
+    , "borderRadius" ::? TS.Number
+    , "borderWidth" ::? TS.Number
+    , "crosshairs" ::? (TS.Boolean :|: ((TS.Boolean, TS.Boolean) :|: (HighchartsCrosshairObject :|: (HighchartsCrosshairObject, HighchartsCrosshairObject))))
+    , "enabled" ::? TS.Boolean
+    , "footerFormat" ::? TS.String
+    , "formatter" ::? (TS.Any)
+    , "pointFormat" ::? TS.String
+    , "positioner" ::? (TS.Number -> TS.Number -> HighchartsPlotPoint -> TS.Obj
+        ('[ "x" ::: TS.Number
+          , "y" ::: TS.Number
           ])
-      )) )
-    , '( 'TS.Property "shadow", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "shared", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "snap", TS.Optional (TS.Number) )
-    , '( 'TS.Property "style", TS.Optional (HighchartsCSSObject) )
-    , '( 'TS.Property "useHTML", TS.Optional (TS.Boolean) )
-    , '( 'TS.Property "valueDecimals", TS.Optional (TS.Number) )
-    , '( 'TS.Property "valuePrefix", TS.Optional (TS.String) )
-    , '( 'TS.Property "valueSuffix", TS.Optional (TS.String) )
-    , '( 'TS.Property "xDateFormat", TS.Optional (TS.String) )
+      )
+    , "shadow" ::? TS.Boolean
+    , "shared" ::? TS.Boolean
+    , "snap" ::? TS.Number
+    , "style" ::? HighchartsCSSObject
+    , "useHTML" ::? TS.Boolean
+    , "valueDecimals" ::? TS.Number
+    , "valuePrefix" ::? TS.String
+    , "valueSuffix" ::? TS.String
+    , "xDateFormat" ::? TS.String
     ])
 
 newtype HighchartsTreeMapChart = HighchartsTreeMapChart (GHCJS.JSRef (HighchartsTreeMapChart))
@@ -1615,7 +1588,7 @@ type instance TS.Members HighchartsWaterFallChartSeriesOptions = TS.Extends '[Hi
 newtype JQuery = JQuery (GHCJS.JSRef (JQuery))
   deriving (Data.Typeable.Typeable, GHCJS.ToJSRef, GHCJS.FromJSRef)
 type instance TS.Members JQuery =
-  ('[ TS.Method "highcharts" (HighchartsChartObject)
-    , TS.Method "highcharts" (HighchartsOptions -> JQuery)
-    , TS.Method "highcharts" (HighchartsOptions -> (HighchartsChartObject -> TS.Void) -> JQuery)
+  ('[ "highcharts" ::: TS.Fun (HighchartsChartObject)
+    , "highcharts" ::: TS.Fun (HighchartsOptions -> JQuery)
+    , "highcharts" ::: TS.Fun (HighchartsOptions -> (HighchartsChartObject -> TS.Void) -> JQuery)
     ])

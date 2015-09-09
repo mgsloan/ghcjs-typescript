@@ -4,9 +4,7 @@
 import Control.Monad
 import Data.Coerce
 import Data.HVect
-import GHCJS.TypeScript.Function
-import GHCJS.TypeScript.Object
-import GHCJS.TypeScript.Types
+import GHCJS.TypeScript
 import GHCJS.Types
 import GHCJS.Prim
 import Prelude hiding (String)
@@ -18,32 +16,28 @@ foreign import javascript "console.log($1)" output :: JSRef obj -> IO ()
 
 main = do
   let xs = coerce (map toJSInt [1,1,2,3,5,8,13]) :: [Number]
-  series <- join $ objectInsert (P::P"data") <$> listToArray xs <*> newObject
-  chart <- newObject >>=
-    objectInsert (P::P"renderTo") (toString "container") >>=
-    objectInsert (P::P"type") (toString "column")
-  title <- newObject >>=
-    objectInsert (P::P"text") (toString "Test graph")
-  subtitle <- newObject >>=
-    objectInsert (P::P"text") (toString "Test subtitle")
+  series <- join $ objAdd (P::P"data") <$> listToArray xs <*> newObj
+  chart <- newObj >>=
+    objAdd (P::P"renderTo") (toString "container") >>=
+    objAdd (P::P"type") (toString "column")
+  title <- newObj >>=
+    objAdd (P::P"text") (toString "Test graph")
+  subtitle <- newObj >>=
+    objAdd (P::P"text") (toString "Test subtitle")
   arr <- listToArray ([] :: [String])
-  xAxis <- newObject >>=
-    objectInsert (P::P"categories") arr
-  title2 <- newObject >>=
-    objectInsert (P::P"text") (toString "Fibs")
-  yAxis <- newObject >>=
-    objectInsert (P::P"title") title2
+  xAxis <- newObj >>=
+    objAdd (P::P"categories") arr
+  title2 <- newObj >>=
+    objAdd (P::P"text") (toString "Fibs")
+  yAxis <- newObj >>=
+    objAdd (P::P"title") title2
   seriess <- listToArray [series]
-  options <- newObject >>=
-    objectInsert (P::P"chart") chart >>=
-    objectInsert (P::P"title") title >>=
-    objectInsert (P::P"subtitle") subtitle >>=
-    objectInsert (P::P"xAxis") xAxis >>=
-    objectInsert (P::P"yAxis") yAxis >>=
-    objectInsert (P::P"series") seriess
-  constr <- getProperty (P::P"Chart") highcharts
-  let castedOptions = cast options :: HighchartsOptions
-  result <- invokeConstructor constr (castedOptions :&: HNil)
-  -- FIXME: make this work
-  -- result <- construct (P::P"Chart") (options :&: HNil) highcharts
+  options <- newObj >>=
+    objAdd (P::P"chart") chart >>=
+    objAdd (P::P"title") title >>=
+    objAdd (P::P"subtitle") subtitle >>=
+    objAdd (P::P"xAxis") xAxis >>=
+    objAdd (P::P"yAxis") yAxis >>=
+    objAdd (P::P"series") seriess
+  result <- callConstructor (P::P"Chart") (options :&: HNil) highcharts
   output (coerce result)
