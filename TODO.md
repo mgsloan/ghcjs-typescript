@@ -1,3 +1,5 @@
+# ghcjs-typescript
+
 * Handle type "identical" relationship properly
 
 * Tuple types
@@ -32,8 +34,6 @@
 
 * Revisit safety decisions on FFI
 
-* Use (:::) and (::?) to define members
-
 * Follow index signature rules:
   (for extends, TSS(7.1)) All properties of the interface must
   satisfy the constraints implied by the index signatures of the
@@ -58,6 +58,17 @@
   * (TSS 7.1) The instance type (section 3.6.1) of the declared
   interface must be assignable (section 3.10.4) to each of the base
   type references
+
+# ghcjs-typescript-convert
+
+* Add prefix to module names from the definitely typed repo
+
+* Support imports between .d.ts.  This is crucial because so many
+  things depend on lib / d.ts
+
+* Support for module systems
+
+* Try to automatically figure out the javascript files being wrapped?
 
 * Concerns for code generation from TSS:
 

@@ -1,0 +1,6 @@
+[submodule "deps/language-typescript"]
+	path = deps/language-typescript
+	url = git://github.com/mgsloan/language-typescript.git
+[submodule "deps/DefinitelyTyped"]
+	path = deps/DefinitelyTyped
+	url = git://github.com/borisyankov/DefinitelyTyped.git

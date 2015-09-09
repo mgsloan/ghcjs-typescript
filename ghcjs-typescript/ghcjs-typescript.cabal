@@ -6,9 +6,9 @@ license:             MIT
 license-file:        LICENSE
 author:              Michael Sloan
 maintainer:          mgsloan@gmail.com
+copyright:           (c) 2015 Michael Sloan
 category:            JavaScript
 build-type:          Simple
--- extra-source-files:
 cabal-version:       >=1.10
 
 library
