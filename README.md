@@ -1,7 +1,7 @@
 **ghcjs-typescript** implements some aspects of TypeScript's type
-system.  It attempts to follow the TypeScript specification, but this
-is not guaranteed, and there are still quite a few things left to do
-(see TODO.md).
+system, embedded within GHC's type system.  It attempts to follow the
+TypeScript specification, but this is not guaranteed, and there are
+still quite a few things left to do (see TODO.md).
 
 **ghcjs-typescript-convert** implements a converter from typescript
 definition files (.d.ts) to Haskell modules.  These modules make use
